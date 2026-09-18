@@ -1,0 +1,51 @@
+/* 复用原型设计系统的基础变量 */
+:root {
+  --brand: #1d9e75;
+  --brand-soft: #e6f5f0;
+  --blue: #185fa5;
+  --blue-soft: #e8f1fa;
+  --bg: #f7f8fa;
+  --card: #ffffff;
+  --border: #e7e9ec;
+  --border-strong: #d6dae0;
+  --text: #1f2328;
+  --text-2: #656d76;
+  --text-3: #96a0ab;
+  --success: #1d9e75;
+  --warning: #ba7517;
+  --danger: #d64545;
+  --info: #378add;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
