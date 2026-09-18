@@ -9,7 +9,8 @@
     "build": "tsc",
     "start": "node dist/main",
     "start:dev": "ts-node src/main.ts",
-    "test:logic": "ts-node test/auth.logic.test.ts"
+    "test:logic": "ts-node test/auth.logic.test.ts",
+    "test:step4": "ts-node test/step4.logic.test.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
