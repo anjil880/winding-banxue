@@ -3,68 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小升初 AI 智能伴学系统</title>
+<title>登录 · 启航伴学</title>
 <link rel="stylesheet" href="shared.css">
 <style>
   .entry { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
-  .entry-box { width: 100%; max-width: 420px; }
-  .entry-head { text-align: center; margin-bottom: 32px; }
-  .entry-head h1 { font-size: 22px; font-weight: 500; margin-bottom: 8px; }
-  .entry-head p { font-size: 14px; color: var(--text-3); }
-  .role-card {
-    display: flex; align-items: center; gap: 14px;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px;
-    transition: all .15s;
+  .entry-box { width: 100%; max-width: 400px; }
+  .entry-head { text-align: center; margin-bottom: 28px; }
+  .entry-head h1 { font-size: 20px; font-weight: 500; letter-spacing: .5px; }
+  .entry-head p { font-size: 13px; color: var(--text-3); margin-top: 6px; }
+
+  /* 身份强调色：学生=品牌绿 / 老师=蓝 / 管理员=中性灰，卡片内所有强调元素统一取 --accent */
+  .login-card { --accent: var(--brand); padding: 24px; margin-bottom: 0; }
+  .login-card[data-role="teacher"] { --accent: var(--blue); }
+  .login-card[data-role="admin"]   { --accent: #4B5563; }  /* 深蓝灰：比 --text-2 更深，避免与未选中身份文字同色 */
+
+  .field { margin-bottom: 16px; }
+  .segment.roles { display: flex; width: 100%; }
+  .segment.roles button { flex: 1; padding: 8px 0; font-size: 14px; }
+  .segment.roles button.active { color: var(--accent); font-weight: 500; }
+
+  .login-btn {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+    margin-top: 20px;
   }
-  .role-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
-  .role-ico { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; flex-shrink: 0; }
-  .role-ico.s { background: var(--brand); }
-  .role-ico.t { background: var(--blue); }
-  .role-ico.a { background: var(--text-2); }
-  .role-name { font-size: 15px; font-weight: 500; }
-  .role-desc { font-size: 13px; color: var(--text-3); margin-top: 2px; }
-  .role-arrow { margin-left: auto; color: var(--text-3); font-size: 18px; }
-  .entry-foot { text-align: center; margin-top: 28px; font-size: 12px; color: var(--text-3); }
+  .login-btn:hover { background: var(--accent); border-color: var(--accent); filter: brightness(.94); }
+
+  .entry-foot { text-align: center; margin-top: 24px; font-size: 12px; color: var(--text-3); }
 </style>
 </head>
 <body>
 <div class="entry">
   <div class="entry-box">
     <div class="entry-head">
-      <h1>小升初 AI 智能伴学系统</h1>
-      <p>六年级 · 数学 · 第六讲</p>
+      <h1>启航伴学</h1>
+      <p>小升初 AI 智能伴学系统</p>
     </div>
 
-    <a class="role-card" href="student-home.html">
-      <div class="role-ico s">学</div>
-      <div>
-        <div class="role-name">学生端</div>
-        <div class="role-desc">做任务、练题目、看掌握度</div>
+    <div class="card login-card" id="loginCard" data-role="student">
+      <div class="field">
+        <span class="field-label">登录身份</span>
+        <div class="segment roles" id="roleSeg">
+          <button type="button" class="active" data-role="student" onclick="switchRole(this)">学生</button>
+          <button type="button" data-role="teacher" onclick="switchRole(this)">老师</button>
+          <button type="button" data-role="admin" onclick="switchRole(this)">管理员</button>
+        </div>
       </div>
-      <div class="role-arrow">›</div>
-    </a>
 
-    <a class="role-card" href="teacher-dashboard.html">
-      <div class="role-ico t">师</div>
-      <div>
-        <div class="role-name">教师端</div>
-        <div class="role-desc">看全班进度、精准讲评</div>
+      <div class="field">
+        <label class="field-label" for="account">账号</label>
+        <div class="field-wrap">
+          <input class="input" id="account" type="text" autocomplete="off" placeholder="请输入学号">
+        </div>
+        <div class="field-err" id="accountErr">请输入账号</div>
       </div>
-      <div class="role-arrow">›</div>
-    </a>
 
-    <a class="role-card" href="admin-dashboard.html">
-      <div class="role-ico a">管</div>
-      <div>
-        <div class="role-name">管理端</div>
-        <div class="role-desc">机构数据、用户与教学质量</div>
+      <div class="field" style="margin-bottom:0">
+        <label class="field-label" for="password">密码</label>
+        <div class="field-wrap">
+          <input class="input has-toggle" id="password" type="password" placeholder="请输入密码">
+          <button class="pwd-toggle" type="button" onclick="togglePwd()">显示</button>
+        </div>
+        <div class="field-err" id="passwordErr">请输入密码</div>
       </div>
-      <div class="role-arrow">›</div>
-    </a>
+
+      <button class="btn btn-block btn-lg login-btn" type="button" onclick="doLogin()">登录</button>
+
+      <div class="demo-tip">
+        演示账号 <button class="demo-fill" type="button" id="demoAccount" onclick="fillDemo()">2024001</button>
+        · 密码 123456（点击账号一键填充）
+      </div>
+    </div>
 
     <div class="entry-foot">原型演示 · 数据为模拟数据</div>
   </div>
 </div>
+
+<script>
+  // 三种身份：占位提示 / 演示账号 / 登录后落地页
+  var ROLES = {
+    student: { ph: '请输入学号',       account: '2024001', home: 'student-home.html' },
+    teacher: { ph: '请输入工号',       account: 'T1001',   home: 'teacher-dashboard.html' },
+    admin:   { ph: '请输入管理员账号', account: 'admin',   home: 'admin-dashboard.html' }
+  };
+
+  function curRole() {
+    return document.querySelector('#roleSeg button.active').dataset.role;
+  }
+
+  // 切换身份：强调色由 CSS 的 [data-role] 接管，JS 同步提示文案、清空旧输入与报错
+  function switchRole(btn) {
+    var role = btn.dataset.role;
+    document.querySelectorAll('#roleSeg button').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('loginCard').dataset.role = role;
+    document.getElementById('account').placeholder = ROLES[role].ph;
+    document.getElementById('demoAccount').textContent = ROLES[role].account;
+    // 学号/工号/管理员账号格式不同，切换后旧输入必然失效，直接清空
+    document.getElementById('account').value = '';
+    document.getElementById('password').value = '';
+    clearErr('account');
+    clearErr('password');
+  }
+
+  // 一键填充：原型演示用，不做账号密码正确性校验
+  function fillDemo() {
+    document.getElementById('account').value = ROLES[curRole()].account;
+    document.getElementById('password').value = '123456';
+    clearErr('account');
+    clearErr('password');
+  }
+
+  function setErr(id) {
+    document.getElementById(id).classList.add('err');
+    document.getElementById(id + 'Err').classList.add('show');
+  }
+
+  function clearErr(id) {
+    document.getElementById(id).classList.remove('err');
+    document.getElementById(id + 'Err').classList.remove('show');
+  }
+
+  function doLogin() {
+    var ok = true;
+    if (document.getElementById('account').value.trim() === '') { setErr('account'); ok = false; } else { clearErr('account'); }
+    if (document.getElementById('password').value.trim() === '') { setErr('password'); ok = false; } else { clearErr('password'); }
+    if (!ok) return;
+    location.href = ROLES[curRole()].home;
+  }
+
+  function togglePwd() {
+    var pwd = document.getElementById('password');
+    var btn = document.querySelector('.pwd-toggle');
+    if (pwd.type === 'password') { pwd.type = 'text'; btn.textContent = '隐藏'; }
+    else { pwd.type = 'password'; btn.textContent = '显示'; }
+  }
+
+  ['account', 'password'].forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') doLogin();
+    });
+    // 一开始输入就撤掉报错，不用等下次点登录
+    el.addEventListener('input', function () { clearErr(id); });
+  });
+</script>
 </body>
 </html>
