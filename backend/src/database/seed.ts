@@ -8,7 +8,12 @@ import { KnowledgePoint } from '../entities/knowledge-point.entity';
 /**
  * 演示种子数据：管理员 + 老师 + 班级 + 学生 + 知识点
  * 运行方式：NODE_ENV=development ts-node src/database/seed.ts
- * 说明：密码统一 123456（生产环境严禁，仅用于本地演示）
+ *
+ * 演示账号（生产环境严禁使用，仅用于本地演示）：
+ *   admin    / Admin@123456    （管理员）
+ *   T1001    / Teacher@123456  （老师）
+ *   2024001  / Student@123456  （学生）
+ * 密码已使用 bcryptjs 预先哈希后硬编码（cost=10）。
  */
 async function run() {
   await AppDataSource.initialize();
@@ -25,8 +30,8 @@ async function run() {
       userRepo.create({
         role: UserRole.ADMIN,
         username: 'admin',
-        // 123456 的 bcrypt 占位；实际请在认证模块用 bcryptjs 生成后替换
-        passwordHash: '$2a$10$PLACEHOLDER_REPLACE_ME',
+        // Admin@123456
+        passwordHash: '$2a$10$FXLVQXhGYcbfoOn6xQxNWu9ENRulYB/ggtEzy9SRvTlxSXrohm5Vu',
         name: '李校长',
         status: UserStatus.ACTIVE,
       }),
@@ -40,7 +45,8 @@ async function run() {
       userRepo.create({
         role: UserRole.TEACHER,
         username: 'T1001',
-        passwordHash: '$2a$10$PLACEHOLDER_REPLACE_ME',
+        // Teacher@123456
+        passwordHash: '$2a$10$GiqN3sduXqFuXx7hhOU1WOFELHMUVY6qxl.4WP5Gcx/oZKf6O212S',
         name: '王老师',
         status: UserStatus.ACTIVE,
       }),
@@ -61,7 +67,8 @@ async function run() {
       userRepo.create({
         role: UserRole.STUDENT,
         username: '2024001',
-        passwordHash: '$2a$10$PLACEHOLDER_REPLACE_ME',
+        // Student@123456
+        passwordHash: '$2a$10$SjOayqw5oUzmkQ/08NPk8.TFcgQGFeGcwSTonLD/jSUVFUleTQgLu',
         name: '李小明',
         status: UserStatus.ACTIVE,
       }),

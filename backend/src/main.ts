@@ -11,8 +11,14 @@ async function bootstrap() {
   app.use(helmet());
   app.use(cookieParser());
 
+  // CORS 显式来源白名单（逗号分隔）。未配置时仅放行本机开发来源，
+  // 生产环境由 env.validation 强制要求设置 CORS_ORIGIN。
+  const corsOrigin = (process.env.CORS_ORIGIN || '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || true,
+    origin: corsOrigin.length > 0 ? corsOrigin : true,
     credentials: true,
   });
 

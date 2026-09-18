@@ -55,3 +55,9 @@ coverage/
 .cache/
 temp/
 tmp/
+
+# 本地依赖安装工具（绕过 npm arborist 的临时脚本，不入库）
+backend/minstall*.js
+
+# Vite 临时文件
+*.timestamp-*.mjs
