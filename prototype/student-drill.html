@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自由刷题 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .kp-pick {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 14px; border: 1px solid var(--border);
+    border-radius: 99px; font-size: 13px; background: var(--card);
+    margin: 0 8px 8px 0; transition: all .15s;
+  }
+  .kp-pick:hover { border-color: var(--border-strong); }
+  .kp-pick.on { background: var(--brand-soft); border-color: var(--brand); color: var(--success); }
+  .opt-row { margin-bottom: 18px; }
+  .opt-label { font-size: 13px; color: var(--text-3); margin-bottom: 9px; }
+  .chip {
+    display: inline-block; padding: 7px 16px; border: 1px solid var(--border);
+    border-radius: 8px; font-size: 13px; background: var(--card);
+    margin-right: 8px; margin-bottom: 8px; cursor: pointer;
+  }
+  .chip.on { background: var(--brand-soft); border-color: var(--brand); color: var(--success); }
+  .summary-box {
+    background: var(--brand-soft); border: 1px solid #BFEBDD;
+    border-radius: var(--radius); padding: 16px 18px;
+  }
+  .sum-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+  .sum-row:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+<div class="student-shell" style="padding-bottom:88px">
+  <div class="topbar">
+    <a class="topbar-back" href="student-selfstudy.html">‹ 返回</a>
+    <div class="topbar-title">自由刷题</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <div class="card-title">选知识点 <span class="sub">可多选</span></div>
+      <div>
+        <div class="opt-label" style="margin-top:6px">数与运算</div>
+        <button class="kp-pick" onclick="toggleKp(this)">分数乘法</button>
+        <button class="kp-pick" onclick="toggleKp(this)">分数除法</button>
+        <button class="kp-pick" onclick="toggleKp(this)">分数四则混合</button>
+        <button class="kp-pick" onclick="toggleKp(this)">百分数应用题</button>
+
+        <div class="opt-label" style="margin-top:12px">图形与几何</div>
+        <button class="kp-pick on" onclick="toggleKp(this)">圆的面积</button>
+        <button class="kp-pick" onclick="toggleKp(this)">圆的周长</button>
+        <button class="kp-pick on" onclick="toggleKp(this)">圆柱与圆锥</button>
+        <button class="kp-pick" onclick="toggleKp(this)">组合图形面积</button>
+
+        <div class="opt-label" style="margin-top:12px">比和比例</div>
+        <button class="kp-pick" onclick="toggleKp(this)">比例尺</button>
+        <button class="kp-pick" onclick="toggleKp(this)">正反比例</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">选难度</div>
+      <div class="opt-row" style="margin-bottom:0">
+        <button class="chip" onclick="pickChip(this,'level')">全部</button>
+        <button class="chip" onclick="pickChip(this,'level')">基础</button>
+        <button class="chip on" onclick="pickChip(this,'level')">进阶</button>
+        <button class="chip" onclick="pickChip(this,'level')">挑战</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">题量</div>
+      <div class="opt-row" style="margin-bottom:0">
+        <button class="chip" onclick="pickChip(this,'count')">5 题</button>
+        <button class="chip on" onclick="pickChip(this,'count')">10 题</button>
+        <button class="chip" onclick="pickChip(this,'count')">15 题</button>
+        <button class="chip" onclick="pickChip(this,'count')">20 题</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">出题方式</div>
+      <div class="opt-row" style="margin-bottom:0">
+        <button class="chip on" onclick="pickChip(this,'mode')">智能出题（按我的水平）</button>
+        <button class="chip" onclick="pickChip(this,'mode')">顺序出题（从头刷）</button>
+        <button class="chip" onclick="pickChip(this,'mode')">只出错题同类</button>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="sum-row"><span>已选知识点</span><span id="sumKp">圆的面积、圆柱与圆锥</span></div>
+      <div class="sum-row"><span>难度</span><span id="sumLevel">进阶</span></div>
+      <div class="sum-row"><span>题量</span><span id="sumCount">10 题</span></div>
+      <div class="sum-row"><span>预计用时</span><span>约 15 分钟</span></div>
+    </div>
+  </div>
+
+  <div style="position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:12px 20px;z-index:30">
+    <div style="max-width:780px;margin:0 auto">
+      <button class="btn btn-primary btn-lg btn-block" onclick="start()">开始刷题</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleKp(el) {
+  el.classList.toggle('on');
+  var on = document.querySelectorAll('.kp-pick.on');
+  var names = [];
+  for (var i = 0; i < on.length; i++) { names.push(on[i].textContent); }
+  document.getElementById('sumKp').textContent = names.length ? names.join('、') : '未选择';
+}
+function pickChip(el, group) {
+  var parent = el.parentNode;
+  var chips = parent.querySelectorAll('.chip');
+  for (var i = 0; i < chips.length; i++) { chips[i].className = 'chip'; }
+  el.className = 'chip on';
+  if (group === 'level') document.getElementById('sumLevel').textContent = el.textContent.replace('（按我的水平）','').replace('（从头刷）','');
+  if (group === 'count') document.getElementById('sumCount').textContent = el.textContent;
+}
+function start() {
+  var kp = document.getElementById('sumKp').textContent;
+  if (kp === '未选择') { alert('请先选至少一个知识点'); return; }
+  location.href = 'student-practice.html';
+}
+</script>
+</body>
+</html>

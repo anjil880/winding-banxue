@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考试测评 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .exam-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px;
+  }
+  .exam-card.urgent { border-color: #F2C9C9; background: #FFFCFC; }
+  .exam-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .exam-name { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .exam-desc { font-size: 13px; color: var(--text-3); }
+  .exam-info { display: flex; gap: 20px; padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 14px; }
+  .exam-info div { font-size: 13px; }
+  .exam-info .l { color: var(--text-3); font-size: 12px; margin-bottom: 2px; }
+  .done-score { font-size: 26px; font-weight: 500; color: var(--success); line-height: 1; }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <a class="topbar-back" href="student-selfstudy.html">‹ 返回</a>
+    <div class="topbar-title">考试测评</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="exam-card urgent">
+      <div class="exam-head">
+        <div>
+          <div class="exam-name">第六单元模拟考</div>
+          <div class="exam-desc">圆的面积 · 圆柱与圆锥</div>
+        </div>
+        <span class="tag tag-red">今晚 22:00 截止</span>
+      </div>
+      <div class="exam-info">
+        <div><div class="l">题量</div><div>20 题</div></div>
+        <div><div class="l">时长</div><div>45 分钟</div></div>
+        <div><div class="l">总分</div><div>100 分</div></div>
+        <div><div class="l">难度</div><div>中等</div></div>
+      </div>
+      <a class="btn btn-primary btn-lg btn-block" href="student-exam-taking.html">开始考试</a>
+    </div>
+
+    <div class="exam-card">
+      <div class="exam-head">
+        <div>
+          <div class="exam-name">第三单元周测</div>
+          <div class="exam-desc">分数除法 · 比和比例</div>
+        </div>
+        <span class="tag tag-gray">已完成</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div class="done-score">72<span style="font-size:14px;color:var(--text-3)"> 分</span></div>
+          <div class="small muted" style="margin-top:4px">班级排名 21 / 42 · 用时 41 分钟</div>
+        </div>
+        <a class="btn" href="student-exam-result.html">看报告</a>
+      </div>
+    </div>
+
+    <div class="exam-card">
+      <div class="exam-head">
+        <div>
+          <div class="exam-name">小升初真题 · 2025 郑州卷</div>
+          <div class="exam-desc">全科真题，限时演练</div>
+        </div>
+        <span class="tag tag-amber">未开放</span>
+      </div>
+      <div class="exam-info">
+        <div><div class="l">题量</div><div>28 题</div></div>
+        <div><div class="l">时长</div><div>60 分钟</div></div>
+        <div><div class="l">总分</div><div>120 分</div></div>
+        <div><div class="l">难度</div><div>较难</div></div>
+      </div>
+      <button class="btn btn-block btn-lg" disabled>10 月 8 日开放</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">我的考试记录</div>
+      <table class="table">
+        <thead>
+          <tr><th>考试</th><th>日期</th><th>得分</th><th>班级排名</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>第三单元周测</td><td class="muted">9-10</td><td>72</td><td>21 / 42</td></tr>
+          <tr><td>第二单元专项</td><td class="muted">9-03</td><td>81</td><td>14 / 42</td></tr>
+          <tr><td>开学摸底考</td><td class="muted">8-28</td><td>68</td><td>26 / 42</td></tr>
+        </tbody>
+      </table>
+      <div class="small muted" style="margin-top:12px">近 3 次考试平均 73.7 分，呈上升趋势。</div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a href="student-home.html"><span class="ico"></span>今日</a>
+      <a class="active" href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课后班级报告 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; align-items: start; }
+  .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 160px; padding-top: 10px; }
+  .bar-col { text-align: center; flex: 1; }
+  .bar-col i { display: block; width: 46px; margin: 0 auto 8px; border-radius: 6px 6px 0 0; }
+  .bar-label { font-size: 12px; color: var(--text-3); }
+  .bar-val { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .tier-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .tier-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a href="teacher-dashboard.html">课堂看板</a>
+      <a href="teacher-assign.html">布置任务</a>
+      <a href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html">考试</a>
+      <a href="teacher-student.html">学生档案</a>
+      <a class="active" href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="card">
+      <div class="row-between">
+        <div>
+          <div style="font-size:18px;font-weight:500">第六讲 · 圆的面积</div>
+          <div class="small muted" style="margin-top:3px">2026-09-17 19:00-20:00 · 六(3)班 · 王老师</div>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn" onclick="alert('报告已导出为 PDF')">导出 PDF</button>
+          <button class="btn btn-blue" onclick="alert('已生成 42 份周报，推送给家长微信')">发送家长周报</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">出勤</div>
+        <div class="stat-value">42<span class="unit">/42</span></div>
+        <div class="stat-sub">全勤</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">任务完成率</div>
+        <div class="stat-value">93<span class="unit">%</span></div>
+        <div class="stat-sub stat-up">较上节课 +5%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">平均正确率</div>
+        <div class="stat-value">71<span class="unit">%</span></div>
+        <div class="stat-sub stat-down">较上节课 -3%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">班级平均掌握度</div>
+        <div class="stat-value">68<span class="unit">%</span></div>
+        <div class="stat-sub stat-up">较上周 +4%</div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <div class="card-title">掌握度分布 <span class="sub">42 人</span></div>
+          <div class="bar-chart">
+            <div class="bar-col">
+              <div class="bar-val">8</div>
+              <i style="height:56px;background:var(--m-high)"></i>
+              <div class="bar-label">优秀 ≥85%</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">15</div>
+              <i style="height:100px;background:#5DCAA5"></i>
+              <div class="bar-label">良好 70-84%</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">13</div>
+              <i style="height:88px;background:var(--m-mid)"></i>
+              <div class="bar-label">一般 50-69%</div>
+            </div>
+            <div class="bar-col">
+              <div class="bar-val">6</div>
+              <i style="height:40px;background:var(--m-low)"></i>
+              <div class="bar-label">薄弱 &lt;50%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">本讲知识点掌握</div>
+          <table class="table">
+            <thead>
+              <tr><th>知识点</th><th style="width:100px">全班正确率</th><th style="width:90px">较上节</th><th style="width:80px">结论</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>圆的周长计算</td><td>89%</td><td class="stat-up">+2%</td><td><span class="tag tag-green">已掌握</span></td></tr>
+              <tr><td>半径直径换算</td><td>68%</td><td class="stat-up">+8%</td><td><span class="tag tag-blue">进步明显</span></td></tr>
+              <tr><td>圆的面积公式应用</td><td>54%</td><td class="stat-down">-6%</td><td><span class="tag tag-amber">需巩固</span></td></tr>
+              <tr><td>组合图形面积</td><td>38%</td><td class="muted">首次</td><td><span class="tag tag-red">重点补</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-title">学生分层</div>
+          <div class="tier-row">
+            <div style="flex:1">
+              <div style="font-size:14px">优秀 · 8 人</div>
+              <div class="small muted">杨浩然、胡嘉懿、马心怡、李小明…</div>
+            </div>
+            <span class="tag tag-green">可加难度</span>
+          </div>
+          <div class="tier-row">
+            <div style="flex:1">
+              <div style="font-size:14px">良好 · 15 人</div>
+              <div class="small muted">黄奕辰、吴俊杰、徐诗涵、林清雅…</div>
+            </div>
+            <span class="tag tag-blue">稳步推进</span>
+          </div>
+          <div class="tier-row">
+            <div style="flex:1">
+              <div style="font-size:14px">一般 · 13 人</div>
+              <div class="small muted">王思远、朱一诺、郭泽楷、高子墨…</div>
+            </div>
+            <span class="tag tag-amber">需练习</span>
+          </div>
+          <div class="tier-row">
+            <div style="flex:1">
+              <div style="font-size:14px">薄弱 · 6 人</div>
+              <div class="small muted">刘子涵、张雨桐、赵梓萱、周佳琪、陈欣怡、孙宇轩</div>
+            </div>
+            <span class="tag tag-red">建议干预</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">AI 教学建议</div>
+          <div class="ai-box" style="margin-top:0;border:none;background:#FAFBFC;padding:0">
+            <div class="ai-text">
+              <div style="margin-bottom:12px">
+                <b>1. 下节课前 5 分钟重讲组合图形</b><br>
+                <span class="muted" style="font-size:13px">全班仅 38%，是本讲最大短板。建议带学生画拆分线，讲「整体 - 空白」思路。</span>
+              </div>
+              <div style="margin-bottom:12px">
+                <b>2. 给 6 名薄弱生降难度</b><br>
+                <span class="muted" style="font-size:13px">这 6 人本讲正确率均低于 40%，继续跟中等难度会打击信心。建议推基础题先建立手感。</span>
+              </div>
+              <div style="margin-bottom:12px">
+                <b>3. 圆柱与圆锥安排专题课</b><br>
+                <span class="muted" style="font-size:13px">全班掌握度 42%，是六年级最弱单元，且与圆的面积关联紧密。</span>
+              </div>
+              <div>
+                <b>4. 关注刘子涵</b><br>
+                <span class="muted" style="font-size:13px">连续 3 次课卡在同一题型，且切出页面频率高，建议课后单独沟通。</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-block btn-blue mt-16" onclick="alert('已按建议生成下节课教案草稿')">生成下节课教案</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">课后作业</div>
+          <div class="row-between" style="margin-bottom:10px">
+            <span class="small muted">已布置</span>
+            <span>组合图形专项 8 题</span>
+          </div>
+          <div class="row-between" style="margin-bottom:10px">
+            <span class="small muted">已完成</span>
+            <span>28 / 42 人</span>
+          </div>
+          <div class="row-between" style="margin-bottom:14px">
+            <span class="small muted">平均正确率</span>
+            <span>66%</span>
+          </div>
+          <button class="btn btn-block" onclick="alert('已向 14 名未完成的家长发送提醒')">提醒未完成学生</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">家长周报预览</div>
+          <div style="background:#FAFBFC;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;font-size:13px;line-height:1.8">
+            <div style="font-weight:500;margin-bottom:6px">李小明家长您好：</div>
+            本周小明完成了 3 次课、42 道练习，<b>掌握度从 75% 提升到 78%</b>。<br><br>
+            已攻克：圆的周长、圆的认识<br>
+            仍需加强：圆柱与圆锥、百分数应用题<br><br>
+            建议本周抽 20 分钟陪孩子复习错题本里的 5 道题。
+          </div>
+          <button class="btn btn-block mt-8" onclick="alert('周报格式已保存为模板')">编辑周报模板</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

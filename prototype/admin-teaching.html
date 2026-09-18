@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 25 页 · 教学质量看板
+     KPI 趋势语义：好=绿(.stat-up) / 差=红(.stat-down)
+     掌握度色阶统一用 --m-high/--m-mid/--m-low（与学生端一致） -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教学质量 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式 ---- */
+  .rank-head{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-3);
+    padding:0 0 8px;border-bottom:1px solid var(--border);margin-bottom:6px}
+  .rank-head .rk{width:20px}
+  .rank-head .name{width:110px}
+  .rank-head .val{width:48px;text-align:right}
+  .val.name-col{width:42px;text-align:left;color:var(--text-3)}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--text-3);margin-top:10px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a href="admin-dashboard.html">数据总览</a>
+      <a href="admin-users.html">用户管理</a>
+      <a href="admin-classes.html">班级排课</a>
+      <a href="admin-questionbank.html">题库管理</a>
+      <a class="active" href="admin-teaching.html">教学质量</a>
+      <a href="admin-renewal.html">续费预警</a>
+      <a href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="mb-12" style="margin-bottom:18px">
+      <div class="page-title">教学质量看板</div>
+      <div class="page-sub">哪个老师教得好、哪个班要干预 · 统计周期 2026-09-11 至 09-17 · 每周一自动刷新</div>
+    </div>
+
+    <div class="grid-main">
+      <div>
+        <!-- 教师排行 -->
+        <div class="card">
+          <div class="card-title">教师排行 <span class="sub">按平均班级掌握度</span></div>
+          <div class="rank-head"><span class="rk">#</span><span class="name">老师</span><span style="flex:1">掌握度</span><span class="val">数值</span></div>
+          <div class="rank-bar"><span class="rk top">1</span><span class="name">王老师</span><span class="track"><span class="fill" style="width:75%;background:var(--m-high)"></span></span><span class="val num">75%</span></div>
+          <div class="rank-bar"><span class="rk top">2</span><span class="name">李老师</span><span class="track"><span class="fill" style="width:74%;background:var(--m-mid)"></span></span><span class="val num">74%</span></div>
+          <div class="rank-bar"><span class="rk top">3</span><span class="name">郑老师</span><span class="track"><span class="fill" style="width:72%;background:var(--m-mid)"></span></span><span class="val num">72%</span></div>
+          <div class="rank-bar"><span class="rk">4</span><span class="name">赵老师</span><span class="track"><span class="fill" style="width:71%;background:var(--m-mid)"></span></span><span class="val num">71%</span></div>
+          <div class="rank-bar"><span class="rk">5</span><span class="name">冯老师</span><span class="track"><span class="fill" style="width:70%;background:var(--m-mid)"></span></span><span class="val num">70%</span></div>
+          <div class="rank-bar"><span class="rk">6</span><span class="name">吴老师</span><span class="track"><span class="fill" style="width:69%;background:var(--m-mid)"></span></span><span class="val num">69%</span></div>
+          <div class="rank-bar"><span class="rk">7</span><span class="name">孙老师</span><span class="track"><span class="fill" style="width:66%;background:var(--m-mid)"></span></span><span class="val num">66%</span></div>
+          <div class="rank-bar"><span class="rk">8</span><span class="name">周老师</span><span class="track"><span class="fill" style="width:63%;background:var(--m-mid)"></span></span><span class="val num">63%</span></div>
+          <div class="rank-bar"><span class="rk">9</span><span class="name">张老师</span><span class="track"><span class="fill" style="width:61%;background:var(--m-mid)"></span></span><span class="val num">61%</span></div>
+          <div class="legend">
+            <span><i style="background:var(--m-high)"></i>≥75% 优秀（绿）</span>
+            <span><i style="background:var(--m-mid)"></i>60~75% 达标（琥珀）</span>
+            <span><i style="background:var(--m-low)"></i>&lt;60% 待提升（红）</span>
+          </div>
+        </div>
+
+        <!-- 班级横向对比 -->
+        <div class="card">
+          <div class="card-title">班级横向对比 <span class="sub">数值为较上周变化</span></div>
+          <div class="rank-head"><span class="rk">#</span><span class="name">班级</span><span class="val name-col">掌握度</span><span style="flex:1"></span><span class="val">较上周</span></div>
+          <div class="rank-bar"><span class="rk">1</span><span class="name">六(1)班</span><span class="val name-col num">76%</span><span class="track"><span class="fill" style="width:76%;background:var(--m-high)"></span></span><span class="val stat-up num">+2%</span></div>
+          <div class="rank-bar"><span class="rk">2</span><span class="name">六(2)班</span><span class="val name-col num">74%</span><span class="track"><span class="fill" style="width:74%;background:var(--m-mid)"></span></span><span class="val stat-up num">+1%</span></div>
+          <div class="rank-bar"><span class="rk">3</span><span class="name">六(3)班</span><span class="val name-col num">74%</span><span class="track"><span class="fill" style="width:74%;background:var(--m-mid)"></span></span><span class="val stat-up num">+3%</span></div>
+          <div class="rank-bar"><span class="rk">4</span><span class="name">六(9)班</span><span class="val name-col num">72%</span><span class="track"><span class="fill" style="width:72%;background:var(--m-mid)"></span></span><span class="val stat-up num">+1%</span></div>
+          <div class="rank-bar"><span class="rk">5</span><span class="name">六(5)班</span><span class="val name-col num">71%</span><span class="track"><span class="fill" style="width:71%;background:var(--m-mid)"></span></span><span class="val stat-up num">+1%</span></div>
+          <div class="rank-bar"><span class="rk">6</span><span class="name">六(10)班</span><span class="val name-col num">70%</span><span class="track"><span class="fill" style="width:70%;background:var(--m-mid)"></span></span><span class="val stat-up num">+2%</span></div>
+          <div class="rank-bar"><span class="rk">7</span><span class="name">六(8)班</span><span class="val name-col num">69%</span><span class="track"><span class="fill" style="width:69%;background:var(--m-mid)"></span></span><span class="val stat-up num">+1%</span></div>
+          <div class="rank-bar"><span class="rk">8</span><span class="name">六(6)班</span><span class="val name-col num">66%</span><span class="track"><span class="fill" style="width:66%;background:var(--m-mid)"></span></span><span class="val stat-up num">+1%</span></div>
+          <div class="rank-bar"><span class="rk">9</span><span class="name">六(7)班</span><span class="val name-col num">63%</span><span class="track"><span class="fill" style="width:63%;background:var(--m-mid)"></span></span><span class="val stat-down num">-4%</span></div>
+          <div class="rank-bar"><span class="rk">10</span><span class="name">六(4)班</span><span class="val name-col num">61%</span><span class="track"><span class="fill" style="width:61%;background:var(--m-mid)"></span></span><span class="val stat-down num">-5%</span></div>
+          <div class="hint mt-8">六(4)、六(7) 连续两周下滑，已触发干预提醒。其余班级本周小幅上升。</div>
+        </div>
+      </div>
+
+      <!-- 右侧辅助栏 -->
+      <div>
+        <!-- 薄弱知识点聚类 -->
+        <div class="card">
+          <div class="card-title">薄弱知识点 <span class="sub">全机构得分率最低</span></div>
+          <div class="rank-bar"><span class="rk">1</span><span class="name" style="width:120px">分数除法应用题</span><span class="track"><span class="fill" style="width:51%;background:var(--danger)"></span></span><span class="val num">51%</span></div>
+          <div class="rank-bar"><span class="rk">2</span><span class="name" style="width:120px">组合图形面积</span><span class="track"><span class="fill" style="width:53%;background:var(--danger)"></span></span><span class="val num">53%</span></div>
+          <div class="rank-bar"><span class="rk">3</span><span class="name" style="width:120px">圆柱表面积</span><span class="track"><span class="fill" style="width:56%;background:var(--warning)"></span></span><span class="val num">56%</span></div>
+          <div class="rank-bar"><span class="rk">4</span><span class="name" style="width:120px">百分数应用题</span><span class="track"><span class="fill" style="width:58%;background:var(--warning)"></span></span><span class="val num">58%</span></div>
+          <div class="rank-bar"><span class="rk">5</span><span class="name" style="width:120px">圆锥体积</span><span class="track"><span class="fill" style="width:60%;background:var(--warning)"></span></span><span class="val num">60%</span></div>
+          <div class="rank-bar"><span class="rk">6</span><span class="name" style="width:120px">比与比例</span><span class="track"><span class="fill" style="width:62%;background:var(--warning)"></span></span><span class="val num">62%</span></div>
+          <div class="hint mt-8">其中「组合图形面积」题库仅 12 题，「百分数应用题」仅 18 题，题量不足也限制了强化训练的开展。</div>
+        </div>
+
+        <!-- AI 教学诊断 -->
+        <div class="card">
+          <div class="card-title">AI 教学诊断</div>
+          <div class="ai-box" style="margin-top:0">
+            <div class="ai-box-head"><span class="ai-badge">AI</span>本周干预建议</div>
+            <div class="ai-text">
+              六(4)班掌握度 61%，低于机构均值 70% 约 9 个百分点，且近两周作业完成率仅 58%，建议本周增加一次 20 分钟专项训练；张老师（六(4)班）的几何模块得分率连续两周下滑，建议安排教研听评课。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

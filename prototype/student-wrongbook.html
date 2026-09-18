@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>错题本 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .wb-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+  }
+  .wb-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  .wb-title { font-size: 14px; line-height: 1.7; flex: 1; }
+  .wb-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .wb-foot { display: flex; align-items: center; justify-content: space-between; }
+  .wb-meta { font-size: 12px; color: var(--text-3); }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .filter-row button {
+    padding: 6px 14px; border-radius: 99px; font-size: 13px;
+    border: 1px solid var(--border); background: var(--card); color: var(--text-2);
+  }
+  .filter-row button.active { background: var(--text); border-color: var(--text); color: #fff; }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <a class="topbar-back" href="student-home.html">‹ 返回</a>
+    <div class="topbar-title">错题本</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="stat-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center">
+        <div style="font-size:20px;font-weight:500;color:var(--danger)">5</div>
+        <div style="font-size:12px;color:var(--text-3)">待复习</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center">
+        <div style="font-size:20px;font-weight:500">3</div>
+        <div style="font-size:12px;color:var(--text-3)">本周新错</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center">
+        <div style="font-size:20px;font-weight:500;color:var(--success)">12</div>
+        <div style="font-size:12px;color:var(--text-3)">已攻克</div>
+      </div>
+    </div>
+
+    <div class="hint-box" style="background:var(--brand-soft);border:1px solid #BFEBDD;border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;color:#0F6E56;margin-bottom:16px">
+      AI 提醒：今天有 <b>3</b> 道题到了复习时间，趁热打铁做一遍。
+    </div>
+
+    <div class="filter-row">
+      <button class="active" onclick="filter(this,'all')">全部</button>
+      <button onclick="filter(this,'todo')">待复习 5</button>
+      <button onclick="filter(this,'done')">已攻克 12</button>
+    </div>
+
+    <div id="list">
+      <div class="wb-item" data-type="todo">
+        <div class="wb-top">
+          <div class="wb-title">一个圆柱的底面半径是 2 分米，高是 5 分米，求它的侧面积。</div>
+          <span class="tag tag-red" style="flex-shrink:0">今天该复习</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">圆柱的表面积</span>
+          <span class="tag tag-amber">错 2 次</span>
+          <span class="tag tag-gray">上次错：3 天前</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">已复习 1 次 · 下次：7 天后</div>
+          <a class="btn btn-sm btn-primary" href="student-practice.html">重做</a>
+        </div>
+      </div>
+
+      <div class="wb-item" data-type="todo">
+        <div class="wb-top">
+          <div class="wb-title">一堆煤用去 3/5，还剩 20 吨，这堆煤原来有多少吨？</div>
+          <span class="tag tag-red" style="flex-shrink:0">今天该复习</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">分数除法应用题</span>
+          <span class="tag tag-amber">错 3 次</span>
+          <span class="tag tag-gray">上次错：昨天</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">已复习 0 次 · 卡在「找单位 1」</div>
+          <a class="btn btn-sm btn-primary" href="student-practice.html">重做</a>
+        </div>
+      </div>
+
+      <div class="wb-item" data-type="todo">
+        <div class="wb-top">
+          <div class="wb-title">求下图阴影部分的面积（正方形边长 8 厘米，内含最大圆）。</div>
+          <span class="tag tag-red" style="flex-shrink:0">今天该复习</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">组合图形面积</span>
+          <span class="tag tag-amber">错 1 次</span>
+          <span class="tag tag-gray">上次错：2 天前</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">已复习 0 次</div>
+          <a class="btn btn-sm btn-primary" href="student-practice.html">重做</a>
+        </div>
+      </div>
+
+      <div class="wb-item" data-type="todo">
+        <div class="wb-top">
+          <div class="wb-title">一件商品打八折后是 240 元，原价是多少元？</div>
+          <span class="tag tag-amber" style="flex-shrink:0">3 天后复习</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">百分数应用题</span>
+          <span class="tag tag-amber">错 2 次</span>
+          <span class="tag tag-gray">上次错：5 天前</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">已复习 2 次</div>
+          <a class="btn btn-sm" href="student-practice.html">重做</a>
+        </div>
+      </div>
+
+      <div class="wb-item" data-type="todo">
+        <div class="wb-top">
+          <div class="wb-title">地图上 3 厘米表示实际距离 60 千米，求这幅图的比例尺。</div>
+          <span class="tag tag-amber" style="flex-shrink:0">7 天后复习</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">比例 · 比例尺</span>
+          <span class="tag tag-amber">错 1 次</span>
+          <span class="tag tag-gray">上次错：7 天前</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">已复习 1 次</div>
+          <a class="btn btn-sm" href="student-practice.html">重做</a>
+        </div>
+      </div>
+
+      <div class="wb-item" data-type="done" style="display:none">
+        <div class="wb-top">
+          <div class="wb-title">一个圆的周长是 12.56 厘米，求它的面积。</div>
+          <span class="tag tag-green" style="flex-shrink:0">已攻克</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">圆的周长与面积</span>
+          <span class="tag tag-green">连续答对 3 次</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">掌握度 92%</div>
+          <a class="btn btn-sm" href="student-practice.html">再练</a>
+        </div>
+      </div>
+
+      <div class="wb-item" data-type="done" style="display:none">
+        <div class="wb-top">
+          <div class="wb-title">化简比：1.2 : 0.36</div>
+          <span class="tag tag-green" style="flex-shrink:0">已攻克</span>
+        </div>
+        <div class="wb-tags">
+          <span class="tag">比的化简</span>
+          <span class="tag tag-green">连续答对 3 次</span>
+        </div>
+        <div class="wb-foot">
+          <div class="wb-meta">掌握度 88%</div>
+          <a class="btn btn-sm" href="student-practice.html">再练</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a href="student-home.html"><span class="ico"></span>今日</a>
+      <a href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a class="active" href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function filter(btn, type) {
+  var btns = document.querySelectorAll('.filter-row button');
+  for (var i = 0; i < btns.length; i++) { btns[i].className = ''; }
+  btn.className = 'active';
+  var items = document.querySelectorAll('.wb-item');
+  for (var j = 0; j < items.length; j++) {
+    var t = items[j].getAttribute('data-type');
+    items[j].style.display = (type === 'all' || t === type) ? 'block' : 'none';
+  }
+}
+</script>
+</body>
+</html>

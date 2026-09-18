@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课下自学 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .entry-card {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px;
+    transition: all .15s;
+  }
+  .entry-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .entry-ico { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; flex-shrink: 0; }
+  .ico-video { background: var(--blue); }
+  .ico-drill { background: var(--brand); }
+  .ico-exam { background: var(--warning); }
+  .entry-name { font-size: 15px; font-weight: 500; }
+  .entry-desc { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+  .entry-arrow { margin-left: auto; color: var(--text-3); font-size: 18px; }
+  .video-card {
+    display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .video-card:last-child { border-bottom: none; }
+  .video-thumb {
+    width: 96px; height: 58px; border-radius: 8px; flex-shrink: 0;
+    background: #E8F1FA; display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .play-btn {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(24,95,165,.85);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .play-btn::after {
+    content: ''; border-left: 7px solid #fff;
+    border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+    margin-left: 2px;
+  }
+  .video-info { flex: 1; min-width: 0; }
+  .video-title { font-size: 14px; margin-bottom: 4px; }
+  .video-meta { font-size: 12px; color: var(--text-3); }
+  .dur-badge {
+    position: absolute; right: 4px; bottom: 4px;
+    background: rgba(0,0,0,.55); color: #fff;
+    font-size: 11px; padding: 1px 5px; border-radius: 4px;
+  }
+  .done-badge {
+    position: absolute; left: 4px; top: 4px;
+    background: var(--success); color: #fff;
+    font-size: 11px; padding: 1px 5px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <a class="topbar-back" href="student-home.html">‹ 返回</a>
+    <div class="topbar-title">课下自学</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="card" style="background:linear-gradient(135deg,#F0F7FF 0%,#EAF7F2 100%);border-color:#D8E8F5">
+      <div style="font-size:15px;font-weight:500;margin-bottom:6px">今天想学点什么？</div>
+      <div class="small muted">老师没布置任务也能自己学。视频看不懂就刷题，刷题卡住就回看视频。</div>
+      <div style="display:flex;gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid #D8E8F5">
+        <div><div style="font-size:18px;font-weight:500">6.2<span style="font-size:12px;color:var(--text-3)"> 小时</span></div><div class="small muted">本周自学时长</div></div>
+        <div><div style="font-size:18px;font-weight:500;color:var(--success)">142</div><div class="small muted">本周刷题量</div></div>
+        <div><div style="font-size:18px;font-weight:500;color:var(--brand)">12<span style="font-size:12px;color:var(--text-3)"> 天</span></div><div class="small muted">连续自学</div></div>
+      </div>
+    </div>
+
+    <a class="entry-card" href="student-video.html">
+      <div class="entry-ico ico-video">▶</div>
+      <div>
+        <div class="entry-name">视频课</div>
+        <div class="entry-desc">按知识点看微课 · 共 48 节</div>
+      </div>
+      <div class="entry-arrow">›</div>
+    </a>
+
+    <a class="entry-card" href="student-drill.html">
+      <div class="entry-ico ico-drill">练</div>
+      <div>
+        <div class="entry-name">自由刷题</div>
+        <div class="entry-desc">自己挑知识点和难度 · 想练哪练哪</div>
+      </div>
+      <div class="entry-arrow">›</div>
+    </a>
+
+    <a class="entry-card" href="student-exam.html">
+      <div class="entry-ico ico-exam">考</div>
+      <div>
+        <div class="entry-name">考试测评</div>
+        <div class="entry-desc">限时模拟考 · 检验真实水平</div>
+      </div>
+      <div class="entry-arrow">›</div>
+    </a>
+
+    <div class="card">
+      <div class="card-title">AI 为你挑的 <span class="sub">根据薄弱点推荐</span></div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <div class="play-btn"></div>
+          <span class="dur-badge">08:24</span>
+        </div>
+        <div class="video-info">
+          <div class="video-title">圆柱的表面积 · 公式推导</div>
+          <div class="video-meta">你的掌握度 42% · 建议先看这个</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-video.html">去学</a>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <div class="play-btn"></div>
+          <span class="dur-badge">06:15</span>
+        </div>
+        <div class="video-info">
+          <div class="video-title">分数除法 · 怎么找单位「1」</div>
+          <div class="video-meta">你有 3 道错题卡在这个考点</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-video.html">去学</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">最近在看 <span class="sub">继续上次进度</span></div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <div class="play-btn"></div>
+          <span class="done-badge">已看完</span>
+          <span class="dur-badge">07:32</span>
+        </div>
+        <div class="video-info">
+          <div class="video-title">圆的面积 · 切圆拼长方形</div>
+          <div class="video-meta">已看完 · 配套练习正确率 75%</div>
+        </div>
+        <a class="btn btn-sm" href="student-video.html">重看</a>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <div class="play-btn"></div>
+          <span class="dur-badge">09:10</span>
+        </div>
+        <div class="video-info">
+          <div class="video-title">百分数应用题 · 打折问题</div>
+          <div class="video-meta">看到 3:20 · 还剩 6 分钟</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-video.html">继续</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a href="student-home.html"><span class="ico"></span>今日</a>
+      <a class="active" href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

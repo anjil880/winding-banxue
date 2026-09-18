@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>组卷与发布考试 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .layout { display: grid; grid-template-columns: 1fr 320px; gap: 16px; align-items: start; }
+  .field { margin-bottom: 16px; }
+  .field-label { font-size: 13px; color: var(--text-2); margin-bottom: 8px; }
+  .field input[type=text], .field select {
+    width: 100%; padding: 9px 12px; border: 1px solid var(--border-strong);
+    border-radius: 8px; font-size: 14px; font-family: inherit;
+  }
+  .blueprint-row {
+    display: grid; grid-template-columns: 1fr 80px 80px 80px;
+    gap: 10px; align-items: center; padding: 10px 0;
+    border-bottom: 1px solid var(--border); font-size: 13px;
+  }
+  .blueprint-row.head { color: var(--text-3); font-size: 12px; border-bottom-color: var(--border); }
+  .blueprint-row:last-child { border-bottom: none; }
+  .blueprint-row input {
+    width: 100%; padding: 5px 8px; border: 1px solid var(--border-strong);
+    border-radius: 6px; font-size: 13px; font-family: inherit; text-align: center;
+  }
+  .score-donut { display: flex; align-items: center; gap: 18px; }
+  .donut-legend div { font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a href="teacher-dashboard.html">课堂看板</a>
+      <a href="teacher-assign.html">布置任务</a>
+      <a href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html" class="active">考试</a>
+      <a href="teacher-student.html">学生档案</a>
+      <a href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="row-between" style="margin-bottom:16px">
+      <div>
+        <div style="font-size:18px;font-weight:500">组卷与发布考试</div>
+        <div class="small muted" style="margin-top:2px">设定范围和难度 → AI 组卷 → 发布到班级</div>
+      </div>
+      <div class="flex gap-8">
+        <button class="btn" onclick="aiPaper()">AI 智能组卷</button>
+        <button class="btn btn-blue" onclick="publish()">发布考试</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <div class="card-title">基本信息</div>
+          <div class="field">
+            <div class="field-label">考试名称</div>
+            <input type="text" value="第六单元模拟考">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+            <div class="field" style="margin-bottom:0">
+              <div class="field-label">考试时长</div>
+              <select><option>45 分钟</option><option>60 分钟</option><option>30 分钟</option><option>90 分钟</option></select>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <div class="field-label">总分</div>
+              <select><option>100 分</option><option>120 分</option><option>150 分</option></select>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <div class="field-label">发布对象</div>
+              <select><option>六(3)班</option><option>六年级全部班级</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">试卷蓝图 <span class="sub">按知识点和难度分配题量</span></div>
+          <div class="blueprint-row head">
+            <div>知识点</div><div style="text-align:center">基础</div><div style="text-align:center">进阶</div><div style="text-align:center">挑战</div>
+          </div>
+          <div class="blueprint-row">
+            <div>圆的面积</div>
+            <input type="text" value="2"><input type="text" value="2"><input type="text" value="1">
+          </div>
+          <div class="blueprint-row">
+            <div>圆的周长</div>
+            <input type="text" value="2"><input type="text" value="1"><input type="text" value="0">
+          </div>
+          <div class="blueprint-row">
+            <div>组合图形面积</div>
+            <input type="text" value="1"><input type="text" value="2"><input type="text" value="1">
+          </div>
+          <div class="blueprint-row">
+            <div>圆柱与圆锥</div>
+            <input type="text" value="2"><input type="text" value="2"><input type="text" value="1">
+          </div>
+          <div class="blueprint-row" style="font-weight:500;border-top:1px solid var(--border);padding-top:12px">
+            <div>合计</div><div style="text-align:center">7 题</div><div style="text-align:center">7 题</div><div style="text-align:center">3 题</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">已生成的题目 <span class="sub">共 17 题</span></div>
+          <table class="table">
+            <thead>
+              <tr><th style="width:50px">题号</th><th>题目</th><th style="width:90px">知识点</th><th style="width:70px">难度</th><th style="width:60px">分值</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>半径 5 米，求圆面积</td><td class="muted">圆的面积</td><td><span class="tag tag-gray">基础</span></td><td>4</td></tr>
+              <tr><td>2</td><td>直径 8 厘米，求圆面积</td><td class="muted">圆的面积</td><td><span class="tag tag-gray">基础</span></td><td>4</td></tr>
+              <tr><td>3</td><td>已知圆面积求半径</td><td class="muted">圆的面积</td><td><span class="tag tag-gray">进阶</span></td><td>6</td></tr>
+              <tr><td>4</td><td>正方形内最大圆，求阴影面积</td><td class="muted">组合图形</td><td><span class="tag tag-gray">进阶</span></td><td>6</td></tr>
+              <tr><td>5</td><td>环形花坛面积计算</td><td class="muted">组合图形</td><td><span class="tag tag-gray">挑战</span></td><td>8</td></tr>
+              <tr><td>6</td><td>水桶贴标签需多少材料</td><td class="muted">圆柱表面积</td><td><span class="tag tag-gray">进阶</span></td><td>6</td></tr>
+              <tr><td>7</td><td>通风管表面积计算</td><td class="muted">圆柱表面积</td><td><span class="tag tag-gray">挑战</span></td><td>8</td></tr>
+              <tr><td colspan="5" class="muted small" style="text-align:center;padding:14px">其余 10 题已折叠 · 共 17 题 100 分</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">分值分布</div>
+          <div class="score-donut">
+            <svg viewBox="0 0 100 100" width="100" height="100">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#EDF0F3" stroke-width="14"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#85B7EB" stroke-width="14"
+                stroke-dasharray="239" stroke-dashoffset="168" transform="rotate(-90 50 50)"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#BA7517" stroke-width="14"
+                stroke-dasharray="239" stroke-dashoffset="60" transform="rotate(72 50 50)"/>
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#D64545" stroke-width="14"
+                stroke-dasharray="239" stroke-dashoffset="180" transform="rotate(180 50 50)"/>
+            </svg>
+            <div class="donut-legend">
+              <div><i class="m-dot" style="background:#85B7EB"></i>基础 30 分</div>
+              <div><i class="m-dot" style="background:#BA7517"></i>进阶 45 分</div>
+              <div><i class="m-dot" style="background:#D64545"></i>挑战 25 分</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="small muted">难度配比接近小升初真题：基础 3 : 进阶 4.5 : 挑战 2.5</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">考试设置</div>
+          <div class="row-between" style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px">
+            <span>题目顺序</span>
+            <span class="muted">固定顺序</span>
+          </div>
+          <div class="row-between" style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px">
+            <span>选项乱序</span>
+            <span class="muted">开启</span>
+          </div>
+          <div class="row-between" style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13px">
+            <span>交卷后看解析</span>
+            <span class="muted">立即开放</span>
+          </div>
+          <div class="row-between" style="padding:10px 0;font-size:13px">
+            <span>成绩公布</span>
+            <span class="muted">交卷即出分</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">发布</div>
+          <div class="field">
+            <div class="field-label">开放时间</div>
+            <select><option>立即开放</option><option>今晚 19:00</option><option>指定时间</option></select>
+          </div>
+          <div class="field" style="margin-bottom:14px">
+            <div class="field-label">截止时间</div>
+            <select><option>今晚 22:00</option><option>明晚 22:00</option><option>不限时</option></select>
+          </div>
+          <button class="btn btn-block btn-blue btn-lg" onclick="publish()">发布到六(3)班</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function aiPaper() {
+  alert('AI 组卷完成\n\n· 覆盖 4 个知识点，共 17 题 100 分\n· 难度配比：基础 30 分 / 进阶 45 分 / 挑战 25 分\n· 已参考六(3)班薄弱点：组合图形、圆柱表面积各加权 1 题\n· 已避开本班近 30 天练过的 62 道题');
+}
+function publish() {
+  alert('考试已发布\n\n六(3)班 42 人 · 今晚 22:00 截止\n学生端已收到考试提醒');
+  location.href = 'teacher-exam-analysis.html';
+}
+</script>
+</body>
+</html>

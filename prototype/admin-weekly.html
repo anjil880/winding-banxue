@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 27 页 · 家长周报预览 + 招生转化占位 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家长周报 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式 ---- */
+  .field{padding:7px 11px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+    font-size:13px;background:var(--card);color:var(--text);font-family:inherit;width:100%}
+  .field:focus{outline:none;border-color:var(--blue)}
+  label.lb{display:block;font-size:12px;color:var(--text-2);margin:0 0 6px}
+  .form-row{margin-bottom:14px}
+
+  /* 周报排布：左侧 1fr，右侧容纳 375px 手机预览 */
+  .grid-weekly{display:grid;grid-template-columns:1fr 380px;gap:16px;align-items:start}
+
+  /* 模板选择卡 */
+  .tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .tpl{border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;
+    cursor:pointer;transition:all .15s;background:var(--card)}
+  .tpl:hover{border-color:var(--border-strong)}
+  .tpl.sel{border-color:var(--blue);background:var(--blue-soft)}
+  .tpl .tpl-t{font-size:14px;font-weight:500;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+  .tpl .tpl-d{font-size:12px;color:var(--text-3);line-height:1.6}
+
+  .weekly-textarea{width:100%;min-height:92px;resize:vertical;padding:12px;border:1px solid var(--border);
+    border-radius:var(--radius-sm);font-size:13px;line-height:1.8;font-family:inherit;color:var(--text)}
+  .weekly-textarea:focus{outline:none;border-color:var(--blue)}
+
+  /* 手机预览 */
+  .phone{width:375px;max-width:100%;margin:0 auto;background:var(--bg);border-radius:14px;
+    border:1px solid var(--border);overflow:hidden}
+  .ph-top{background:var(--blue);color:#fff;padding:16px}
+  .ph-org{font-size:12px;opacity:.85}
+  .ph-title{font-size:16px;font-weight:500;margin-top:4px}
+  .ph-date{font-size:12px;opacity:.85;margin-top:3px}
+  .ph-body{padding:14px}
+  .ph-stat-row{display:flex;gap:10px;margin-bottom:14px}
+  .ph-stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center}
+  .ph-stat .ph-v{font-size:18px;font-weight:500}
+  .ph-stat .ph-l{font-size:11px;color:var(--text-3);margin-top:3px}
+  .ph-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}
+  .ph-block-t{font-size:12px;color:var(--text-3);margin-bottom:6px}
+  .ph-mastery{display:flex;align-items:baseline;gap:8px}
+  .ph-mastery .ph-old{font-size:14px;color:var(--text-3)}
+  .ph-mastery .ph-new{font-size:22px;font-weight:600}
+  .ph-text{font-size:13px;line-height:1.8;color:var(--text)}
+  .ph-foot{text-align:center;font-size:13px;color:var(--blue);padding:6px 0}
+  .ph-note{font-size:11px;color:var(--text-3);text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a href="admin-dashboard.html">数据总览</a>
+      <a href="admin-users.html">用户管理</a>
+      <a href="admin-classes.html">班级排课</a>
+      <a href="admin-questionbank.html">题库管理</a>
+      <a href="admin-teaching.html">教学质量</a>
+      <a href="admin-renewal.html">续费预警</a>
+      <a class="active" href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="mb-12" style="margin-bottom:18px">
+      <div class="page-title">家长周报</div>
+      <div class="page-sub">发给家长的周报长啥样、新客从哪来 · 本周周期 2026-09-11 至 09-17 · 周五 17:00 定时推送</div>
+    </div>
+
+    <div class="grid-weekly">
+      <!-- ======== 左侧主栏 ======== -->
+      <div>
+        <!-- 周报模板选择 -->
+        <div class="card">
+          <div class="card-title">周报模板 <span class="sub">点击选择</span></div>
+          <div class="tpl-grid">
+            <div class="tpl sel" onclick="pickTpl(this)">
+              <div class="tpl-t">标准版 <span class="tag tag-blue" style="padding:1px 7px">推荐</span></div>
+              <div class="tpl-d">学习数据 + 掌握度 + 老师寄语 + AI 评语，适合大多数家长。</div>
+            </div>
+            <div class="tpl" onclick="pickTpl(this)">
+              <div class="tpl-t">精简版</div>
+              <div class="tpl-d">仅学习数据与一句 AI 评语，阅读时长约 30 秒。</div>
+            </div>
+            <div class="tpl" onclick="pickTpl(this)">
+              <div class="tpl-t">详细版</div>
+              <div class="tpl-d">在标准版基础上增加各知识点得分与错题清单。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 评语设置 -->
+        <div class="card">
+          <div class="card-title">AI 评语设置 <span class="sub">可手动修改后再推送</span></div>
+          <div class="ai-box" style="margin-top:0">
+            <div class="ai-box-head"><span class="ai-badge">AI</span>根据本周学习数据自动生成</div>
+            <textarea class="weekly-textarea" id="aiComment">李小明本周完成了 6 个任务，圆的面积正确率从 68% 提升到 79%，进步明显。建议下周重点关注圆柱体积的公式推导。</textarea>
+            <div class="mt-8" style="display:flex;gap:10px">
+              <button class="btn btn-sm" onclick="regen()">重新生成</button>
+              <span class="hint" style="align-self:center">基于 386 名学员的可比数据，语气保持鼓励、具体、不夸张。</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 推送设置 -->
+        <div class="card">
+          <div class="card-title">推送设置</div>
+          <div class="form-row">
+            <label class="lb">推送渠道</label>
+            <div class="segment" id="chanSeg">
+              <button class="active" onclick="segPick(this,'chan')">微信服务号</button>
+              <button onclick="segPick(this,'chan')">短信</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="lb">推送时间</label>
+            <select class="field"><option>周五 17:00</option><option>周五 20:00</option><option>周六 09:00</option></select>
+          </div>
+          <div class="form-row" style="margin-bottom:0">
+            <label class="lb">收件人范围</label>
+            <select class="field"><option>全班家长（386 人）</option><option>仅高风险学员家长（23 人）</option><option>仅本周有作业提交的家长</option></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======== 右侧栏 ======== -->
+      <div>
+        <!-- 手机预览 -->
+        <div class="card-flat" style="margin-bottom:16px">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
+            <div style="font-size:14px;font-weight:500">推送预览 <span class="sub" style="color:var(--text-3);font-weight:400;font-size:12px">微信卡片</span></div>
+          </div>
+          <div style="padding:14px">
+            <div class="phone">
+              <div class="ph-top">
+                <div class="ph-org">启航伴学 · 六(3)班</div>
+                <div class="ph-title">李小明 的每周学习报告</div>
+                <div class="ph-date">2026-09-11 至 09-17</div>
+              </div>
+              <div class="ph-body">
+                <div class="ph-stat-row">
+                  <div class="ph-stat"><div class="ph-v num">142</div><div class="ph-l">学习时长(分)</div></div>
+                  <div class="ph-stat"><div class="ph-v num">86</div><div class="ph-l">完成题数</div></div>
+                  <div class="ph-stat"><div class="ph-v num">6</div><div class="ph-l">完成任务</div></div>
+                </div>
+                <div class="ph-block">
+                  <div class="ph-block-t">掌握度变化</div>
+                  <div class="ph-mastery">
+                    <span class="ph-old num">68%</span>
+                    <span class="stat-up" style="font-size:14px">↑</span>
+                    <span class="ph-new num stat-up">79%</span>
+                  </div>
+                </div>
+                <div class="ph-block">
+                  <div class="ph-block-t">老师寄语</div>
+                  <div class="ph-text">小明这周的专注度比上周好很多，圆的面积这块进步很明显，继续保持！</div>
+                </div>
+                <div class="ph-block" style="margin-bottom:0">
+                  <div class="ph-block-t">AI 评语</div>
+                  <div class="ph-text">李小明本周完成了 6 个任务，圆的面积正确率从 68% 提升到 79%，进步明显。建议下周重点关注圆柱体积的公式推导。</div>
+                </div>
+                <div class="ph-foot">点击查看完整报告 ›</div>
+              </div>
+            </div>
+            <div class="ph-note">示例：以学员「李小明」为例生成</div>
+          </div>
+        </div>
+
+        <!-- 推送统计卡 -->
+        <div class="card">
+          <div class="card-title">推送统计</div>
+          <div class="row-between" style="padding:8px 0">
+            <span class="small muted">本周待推送</span>
+            <span class="num" style="font-size:16px;font-weight:500">386 人</span>
+          </div>
+          <div class="row-between" style="padding:8px 0;border-top:1px solid var(--border)">
+            <span class="small muted">已推送</span>
+            <span class="num" style="font-size:16px;font-weight:500">0 人</span>
+          </div>
+          <button class="btn btn-primary btn-block mt-16" onclick="alert('已向 386 位家长批量推送本周学习报告（模拟）')">立即批量推送</button>
+          <div class="hint mt-8">推送前建议在手机预览中确认评语与数据无误。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 招生转化占位（二期） -->
+    <div class="card-flat" style="position:relative;margin-top:16px">
+      <span class="tag tag-blue" style="position:absolute;top:16px;right:16px">二期上线</span>
+      <div style="padding:16px">
+        <div class="empty">
+          <div class="ico">拓</div>
+          <div class="t">招生转化跟踪</div>
+          <div class="d">试听课线索、渠道来源分析、意向学员跟进漏斗。该模块涉及线索管理与外部渠道对接，规划在二期上线。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 模板单选
+  function pickTpl(el){
+    document.querySelectorAll('.tpl').forEach(function(t){ t.classList.remove('sel'); });
+    el.classList.add('sel');
+  }
+  // 渠道分段选择
+  function segPick(el){
+    var parent = el.parentElement;
+    parent.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    el.classList.add('active');
+  }
+  // 重新生成 AI 评语
+  function regen(){
+    var seeds = [
+      '李小明本周完成了 6 个任务，圆的面积正确率从 68% 提升到 79%，进步明显。建议下周重点关注圆柱体积的公式推导。',
+      '李小明本周在「圆的面积」板块表现突出，正确率较上周提升 11 个百分点，任务完成质量稳定。下周可尝试挑战组合图形面积。'
+    ];
+    var ta = document.getElementById('aiComment');
+    ta.value = ta.value === seeds[0] ? seeds[1] : seeds[0];
+  }
+</script>
+</body>
+</html>

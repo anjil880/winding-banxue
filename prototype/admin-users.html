@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 22 页 · 用户管理
+     KPI 趋势语义：好=绿(.stat-up) / 差=红(.stat-down) -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用户管理 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式 ---- */
+  .field{padding:7px 11px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+    font-size:13px;background:var(--card);color:var(--text);font-family:inherit}
+  .field:focus{outline:none;border-color:var(--blue)}
+  select.field{cursor:pointer}
+  .search{min-width:200px}
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    padding:14px 20px;border-bottom:1px solid var(--border)}
+  .filter-bar .spacer{flex:1}
+  .table-admin .avatar{width:24px;height:24px;font-size:12px}
+  .table-admin td .progress{width:88px}
+  .panel{display:none}
+  .panel.show{display:block}
+  .table-note{padding:10px 20px;border-bottom:1px solid var(--border);background:var(--row-hover)}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a href="admin-dashboard.html">数据总览</a>
+      <a class="active" href="admin-users.html">用户管理</a>
+      <a href="admin-classes.html">班级排课</a>
+      <a href="admin-questionbank.html">题库管理</a>
+      <a href="admin-teaching.html">教学质量</a>
+      <a href="admin-renewal.html">续费预警</a>
+      <a href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="row-between" style="margin-bottom:18px;align-items:flex-end">
+      <div>
+        <div class="page-title">用户管理</div>
+        <div class="page-sub">机构内的老师与学员是谁、状态如何 · 数据截至 2026-09-17</div>
+      </div>
+      <div class="segment">
+        <button id="tabT" onclick="switchTab('t')">老师</button>
+        <button id="tabS" class="active" onclick="switchTab('s')">学生</button>
+      </div>
+    </div>
+
+    <!-- ========== 老师面板 ========== -->
+    <div class="panel" id="panel-t">
+      <div class="card-flat">
+        <div class="filter-bar">
+          <input class="field search" type="text" placeholder="搜索老师姓名">
+          <select class="field"><option>全部班级</option><option>六(1)班</option><option>六(3)班</option><option>六(4)班</option></select>
+          <select class="field"><option>全部状态</option><option>在职</option><option>离职</option></select>
+          <div class="spacer"></div>
+          <button class="btn btn-sm" onclick="alert('老师名单已导出为 CSV（9 条记录）')">导出 CSV</button>
+        </div>
+        <table class="table-admin">
+          <thead>
+            <tr>
+              <th style="width:150px">老师</th>
+              <th style="width:90px">带班数</th>
+              <th style="width:100px">在教人数</th>
+              <th style="width:210px">平均班级掌握度</th>
+              <th style="width:100px">教学评分</th>
+              <th style="width:90px">状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><div class="stu"><div class="avatar">王</div>王老师</div></td><td class="num">2</td><td class="num">82</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:75%"></div></div><span class="num small">75%</span></div></td><td class="num">4.8</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">李</div>李老师</div></td><td class="num">1</td><td class="num">42</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:74%"></div></div><span class="num small">74%</span></div></td><td class="num">4.7</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">郑</div>郑老师</div></td><td class="num">1</td><td class="num">35</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:72%"></div></div><span class="num small">72%</span></div></td><td class="num">4.6</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">赵</div>赵老师</div></td><td class="num">1</td><td class="num">40</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:71%"></div></div><span class="num small">71%</span></div></td><td class="num">4.5</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">冯</div>冯老师</div></td><td class="num">1</td><td class="num">35</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:70%"></div></div><span class="num small">70%</span></div></td><td class="num">4.5</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">吴</div>吴老师</div></td><td class="num">1</td><td class="num">38</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:69%"></div></div><span class="num small">69%</span></div></td><td class="num">4.3</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">孙</div>孙老师</div></td><td class="num">1</td><td class="num">36</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:66%"></div></div><span class="num small">66%</span></div></td><td class="num">4.2</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">周</div>周老师</div></td><td class="num">1</td><td class="num">40</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:63%"></div></div><span class="num small">63%</span></div></td><td class="num">4.1</td><td><span class="tag tag-green">在职</span></td></tr>
+            <tr><td><div class="stu"><div class="avatar">张</div>张老师</div></td><td class="num">1</td><td class="num">38</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar low" style="width:61%"></div></div><span class="num small">61%</span></div></td><td class="num">3.9</td><td><span class="tag tag-green">在职</span></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 20px;text-align:center;color:var(--text-3);font-size:13px">显示 9 行 · 共 9</div>
+      </div>
+    </div>
+
+    <!-- ========== 学生面板 ========== -->
+    <div class="panel show" id="panel-s">
+      <div class="card-flat">
+        <div class="filter-bar">
+          <input class="field search" type="text" placeholder="搜索学生姓名">
+          <select class="field"><option>全部班级</option><option>六(3)班</option><option>六(4)班</option><option>六(6)班</option><option>六(7)班</option></select>
+          <select class="field"><option>全部状态</option><option>在读</option><option>停课</option><option>已结业</option></select>
+          <select class="field"><option>全部续费状态</option><option>高风险</option><option>中风险</option><option>低风险</option></select>
+          <div class="spacer"></div>
+          <button class="btn btn-sm" onclick="alert('学生名单已导出为 CSV（386 条记录）')">导出 CSV</button>
+        </div>
+        <div class="table-note"><span class="hint">流失风险分口径：高风险 ≥70 / 中风险 40-69 / 低风险 &lt;40</span></div>
+        <table class="table-admin">
+          <thead>
+            <tr>
+              <th style="width:140px">学生</th>
+              <th style="width:90px">班级</th>
+              <th style="width:100px">剩余课时</th>
+              <th style="width:180px">平均掌握度</th>
+              <th style="width:110px">续费状态</th>
+              <th style="width:100px">最近活跃</th>
+              <th style="width:130px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><div class="stu"><div class="avatar">刘</div>刘子涵</div></td><td>六(3)班</td><td class="num">4</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar low" style="width:58%"></div></div><span class="num small">58%</span></div></td><td><span class="risk-badge high">高风险</span></td><td class="muted small">今天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">陈</div>陈欣怡</div></td><td>六(7)班</td><td class="num">3</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:66%"></div></div><span class="num small">66%</span></div></td><td><span class="risk-badge high">高风险</span></td><td class="muted small">今天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">张</div>张雨桐</div></td><td>六(4)班</td><td class="num">7</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:63%"></div></div><span class="num small">63%</span></div></td><td><span class="risk-badge high">高风险</span></td><td class="muted small">昨天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">赵</div>赵梓萱</div></td><td>六(7)班</td><td class="num">6</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:65%"></div></div><span class="num small">65%</span></div></td><td><span class="risk-badge high">高风险</span></td><td class="muted small">2 天前</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">王</div>王思远</div></td><td>六(4)班</td><td class="num">12</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:61%"></div></div><span class="num small">61%</span></div></td><td><span class="risk-badge mid">中风险</span></td><td class="muted small">3 天前</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">周</div>周佳琪</div></td><td>六(6)班</td><td class="num">9</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:67%"></div></div><span class="num small">67%</span></div></td><td><span class="risk-badge mid">中风险</span></td><td class="muted small">昨天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">孙</div>孙一诺</div></td><td>六(3)班</td><td class="num">20</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:74%"></div></div><span class="num small">74%</span></div></td><td><span class="risk-badge low">低风险</span></td><td class="muted small">今天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">冯</div>冯雨薇</div></td><td>六(4)班</td><td class="num">22</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:76%"></div></div><span class="num small">76%</span></div></td><td><span class="risk-badge low">低风险</span></td><td class="muted small">今天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">李</div>李小明</div></td><td>六(3)班</td><td class="num">18</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:79%"></div></div><span class="num small">79%</span></div></td><td><span class="risk-badge low">低风险</span></td><td class="muted small">今天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+            <tr><td><div class="stu"><div class="avatar">吴</div>吴俊杰</div></td><td>六(3)班</td><td class="num">26</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:80%"></div></div><span class="num small">80%</span></div></td><td><span class="risk-badge low">低风险</span></td><td class="muted small">今天</td><td><div class="ops"><button class="btn btn-sm" onclick="event.stopPropagation()">查看</button><button class="btn btn-sm" onclick="event.stopPropagation()">编辑</button></div></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 20px;text-align:center;color:var(--text-3);font-size:13px">显示 10 行 · 共 386</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Tab 切换
+  function switchTab(kind){
+    var isTeacher = kind === 't';
+    document.getElementById('panel-t').classList.toggle('show', isTeacher);
+    document.getElementById('panel-s').classList.toggle('show', !isTeacher);
+    document.getElementById('tabT').classList.toggle('active', isTeacher);
+    document.getElementById('tabS').classList.toggle('active', !isTeacher);
+  }
+  // 表格行点击选中
+  document.querySelectorAll('.table-admin tbody tr').forEach(function(tr){
+    tr.style.cursor = 'pointer';
+    tr.addEventListener('click', function(){ tr.classList.toggle('sel'); });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学生档案 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; align-items: start; }
+  .profile { display: flex; align-items: center; gap: 16px; }
+  .big-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--blue-soft); color: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .chart-box { padding: 8px 4px 0; }
+  .note-area { width: 100%; min-height: 70px; padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font-family: inherit; font-size: 13px; resize: vertical; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a href="teacher-dashboard.html">课堂看板</a>
+      <a href="teacher-assign.html">布置任务</a>
+      <a href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html">考试</a>
+      <a class="active" href="teacher-student.html">学生档案</a>
+      <a href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="card">
+      <div class="profile">
+        <div class="big-avatar">李</div>
+        <div style="flex:1">
+          <div class="row-between">
+            <div>
+              <div style="font-size:18px;font-weight:500">李小明</div>
+              <div class="small muted" style="margin-top:2px">六(3)班 · 学号 20240312 · 家长：李女士 138****6721</div>
+            </div>
+            <select onchange="alert('切换到：' + this.value)" style="padding:6px 10px;border:1px solid var(--border-strong);border-radius:6px;font-family:inherit;font-size:13px">
+              <option>切换学生</option>
+              <option>王思远</option>
+              <option>刘子涵</option>
+              <option>张雨桐</option>
+              <option>赵梓萱</option>
+              <option>杨浩然</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-grid cols-3" style="margin-bottom:0">
+        <div style="text-align:center">
+          <div class="stat-label">总体掌握度</div>
+          <div style="font-size:22px;font-weight:500;color:var(--success)">78%</div>
+          <div class="stat-sub">班级排名 12 / 42</div>
+        </div>
+        <div style="text-align:center">
+          <div class="stat-label">本周学习时长</div>
+          <div style="font-size:22px;font-weight:500">6.2<span style="font-size:13px;color:var(--text-3)"> 小时</span></div>
+          <div class="stat-sub">课时 3 · 自学 3.2</div>
+        </div>
+        <div style="text-align:center">
+          <div class="stat-label">连学天数</div>
+          <div style="font-size:22px;font-weight:500">12<span style="font-size:13px;color:var(--text-3)"> 天</span></div>
+          <div class="stat-sub">作业完成率 96%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <div class="card-title">掌握度趋势 <span class="sub">近 8 周</span></div>
+          <div class="chart-box">
+            <svg viewBox="0 0 620 240" width="100%">
+              <line x1="50" y1="20" x2="600" y2="20" stroke="#EDF0F3" stroke-width="1"/>
+              <line x1="50" y1="70" x2="600" y2="70" stroke="#EDF0F3" stroke-width="1"/>
+              <line x1="50" y1="120" x2="600" y2="120" stroke="#EDF0F3" stroke-width="1"/>
+              <line x1="50" y1="170" x2="600" y2="170" stroke="#EDF0F3" stroke-width="1"/>
+              <text x="42" y="20" fill="#96A0AB" text-anchor="end" style="font-size:11px">90</text>
+              <text x="42" y="70" fill="#96A0AB" text-anchor="end" style="font-size:11px">80</text>
+              <text x="42" y="120" fill="#96A0AB" text-anchor="end" style="font-size:11px">70</text>
+              <text x="42" y="170" fill="#96A0AB" text-anchor="end" style="font-size:11px">60</text>
+              <polyline points="70,142 145,131 220,138 295,120 370,108 445,115 520,96 595,88"
+                fill="none" stroke="#185FA5" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="70" cy="142" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="145" cy="131" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="220" cy="138" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="295" cy="120" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="370" cy="108" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="445" cy="115" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="520" cy="96" r="3.5" fill="#fff" stroke="#185FA5" stroke-width="2"/>
+              <circle cx="595" cy="88" r="4.5" fill="#185FA5"/>
+              <text x="595" y="74" fill="#185FA5" text-anchor="middle" style="font-size:12px">78%</text>
+              <text x="70" y="196" fill="#96A0AB" text-anchor="middle" style="font-size:11px">第1周</text>
+              <text x="220" y="196" fill="#96A0AB" text-anchor="middle" style="font-size:11px">第3周</text>
+              <text x="370" y="196" fill="#96A0AB" text-anchor="middle" style="font-size:11px">第5周</text>
+              <text x="520" y="196" fill="#96A0AB" text-anchor="middle" style="font-size:11px">第7周</text>
+              <text x="595" y="196" fill="#96A0AB" text-anchor="middle" style="font-size:11px">本周</text>
+            </svg>
+          </div>
+          <div class="small muted" style="margin-top:8px">8 周提升 16 个百分点，第 5 周的小幅回落对应「圆柱与圆锥」单元。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">近期学习记录</div>
+          <table class="table">
+            <thead>
+              <tr><th>日期</th><th>内容</th><th>题量</th><th>正确率</th><th>用时</th><th>评价</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>9-16</td><td>课后作业 · 圆的周长</td><td>10</td><td>90%</td><td>18 分</td><td><span class="tag tag-green">优秀</span></td></tr>
+              <tr><td>9-15</td><td>课堂练习 · 圆的认识</td><td>8</td><td>88%</td><td>15 分</td><td><span class="tag tag-green">优秀</span></td></tr>
+              <tr><td>9-14</td><td>自学 · 圆柱表面积</td><td>12</td><td>58%</td><td>26 分</td><td><span class="tag tag-amber">一般</span></td></tr>
+              <tr><td>9-12</td><td>课堂练习 · 分数除法</td><td>10</td><td>60%</td><td>22 分</td><td><span class="tag tag-amber">一般</span></td></tr>
+              <tr><td>9-10</td><td>周测 · 第三单元</td><td>20</td><td>72%</td><td>45 分</td><td><span class="tag tag-blue">良好</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">知识点掌握</div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-high"></i>圆的周长</div></div>
+            <div class="list-right small">89%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-high"></i>圆的认识</div></div>
+            <div class="list-right small">88%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-mid"></i>分数乘法</div></div>
+            <div class="list-right small">85%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-mid"></i>圆的面积</div></div>
+            <div class="list-right small">62%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-mid"></i>分数除法</div></div>
+            <div class="list-right small">55%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-low"></i>圆柱与圆锥</div></div>
+            <div class="list-right small">42%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-low"></i>百分数应用题</div></div>
+            <div class="list-right small">48%</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">错题情况</div>
+          <div class="row-between" style="margin-bottom:10px">
+            <span class="small muted">待复习</span>
+            <span style="font-size:16px;font-weight:500">5 道</span>
+          </div>
+          <div class="row-between" style="margin-bottom:10px">
+            <span class="small muted">已攻克</span>
+            <span style="font-size:16px;font-weight:500">12 道</span>
+          </div>
+          <div class="row-between">
+            <span class="small muted">反复错（≥3 次）</span>
+            <span style="font-size:16px;font-weight:500;color:var(--danger)">1 道</span>
+          </div>
+          <div class="divider"></div>
+          <div class="small muted">「分数除法找单位 1」已错 3 次，建议单独辅导。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">老师备注</div>
+          <textarea class="note-area" placeholder="记录对这个学生的观察，下次课能看到">9-14 圆柱表面积自学正确率偏低，课上多关注。
+分数除法单位「1」的判断需要单独讲。</textarea>
+          <button class="btn btn-block btn-blue mt-8" onclick="alert('备注已保存')">保存备注</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">快捷操作</div>
+          <button class="btn btn-block mb-12" onclick="alert('已为李小明推送 5 道专项练习')">推送专项练习</button>
+          <button class="btn btn-block mb-12" onclick="alert('已调整该生的题目难度为「由易到难」')">调整难度策略</button>
+          <button class="btn btn-block" onclick="alert('学习周报已发送给家长（李女士）')">发送家长周报</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>布置学习任务 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .layout { display: grid; grid-template-columns: 220px 1fr 300px; gap: 16px; align-items: start; }
+  .kp-tree { max-height: 620px; overflow-y: auto; }
+  .kp-cat { font-size: 12px; color: var(--text-3); margin: 12px 0 6px; }
+  .kp-cat:first-child { margin-top: 0; }
+  .kp-btn {
+    display: block; width: 100%; text-align: left; padding: 7px 12px;
+    border-radius: 6px; font-size: 13px; color: var(--text-2); margin-bottom: 2px;
+  }
+  .kp-btn:hover { background: var(--bg); }
+  .kp-btn.active { background: var(--blue-soft); color: var(--blue); }
+  .q-item { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
+  .q-item:last-child { border-bottom: none; }
+  .q-body { flex: 1; }
+  .q-text { font-size: 14px; line-height: 1.7; margin-bottom: 6px; }
+  .basket-item { display: flex; gap: 8px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .basket-item:last-child { border-bottom: none; }
+  .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-row select { padding: 5px 8px; border: 1px solid var(--border-strong); border-radius: 6px; font-family: inherit; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a href="teacher-dashboard.html">课堂看板</a>
+      <a class="active" href="teacher-assign.html">布置任务</a>
+      <a href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html">考试</a>
+      <a href="teacher-student.html">学生档案</a>
+      <a href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="row-between" style="margin-bottom:16px">
+      <div>
+        <div style="font-size:18px;font-weight:500">布置学习任务</div>
+        <div class="small muted" style="margin-top:2px">选知识点 → 挑题目 → 下发到班级</div>
+      </div>
+      <div class="flex gap-8">
+        <button class="btn" onclick="aiCompose()">AI 一键组题</button>
+        <button class="btn btn-blue" onclick="assign()">下发到六(3)班</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="card kp-tree">
+        <div class="card-title">知识点</div>
+        <div class="kp-cat">数与运算</div>
+        <button class="kp-btn" onclick="pickKp(this,'分数乘法')">分数乘法</button>
+        <button class="kp-btn" onclick="pickKp(this,'分数除法')">分数除法</button>
+        <button class="kp-btn" onclick="pickKp(this,'分数四则混合')">分数四则混合</button>
+        <button class="kp-btn" onclick="pickKp(this,'百分数应用题')">百分数应用题</button>
+        <div class="kp-cat">图形与几何</div>
+        <button class="kp-btn" onclick="pickKp(this,'圆的认识')">圆的认识</button>
+        <button class="kp-btn" onclick="pickKp(this,'圆的周长')">圆的周长</button>
+        <button class="kp-btn active" onclick="pickKp(this,'圆的面积')">圆的面积</button>
+        <button class="kp-btn" onclick="pickKp(this,'圆柱与圆锥')">圆柱与圆锥</button>
+        <div class="kp-cat">比和比例</div>
+        <button class="kp-btn" onclick="pickKp(this,'比的意义')">比的意义</button>
+        <button class="kp-btn" onclick="pickKp(this,'比例的基本性质')">比例的基本性质</button>
+        <button class="kp-btn" onclick="pickKp(this,'比例尺')">比例尺</button>
+        <button class="kp-btn" onclick="pickKp(this,'正反比例')">正反比例</button>
+        <div class="kp-cat">统计与综合</div>
+        <button class="kp-btn" onclick="pickKp(this,'扇形统计图')">扇形统计图</button>
+        <button class="kp-btn" onclick="pickKp(this,'数学广角')">数学广角</button>
+      </div>
+
+      <div class="card-flat" style="margin-bottom:0">
+        <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:15px;font-weight:500">题库 <span id="kpLabel" class="sub" style="color:var(--text-3);font-weight:400;font-size:13px">圆的面积</span></div>
+          <div class="segment">
+            <button class="active">全部难度</button>
+            <button>易</button>
+            <button>中</button>
+            <button>难</button>
+          </div>
+        </div>
+        <div style="padding:0 20px" id="qpool">
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">1. 一个圆形花坛的半径是 4 米，它的面积是多少平方米？</div>
+              <div class="flex gap-8"><span class="tag">圆的面积</span><span class="tag tag-gray">难度 中</span><span class="tag tag-gray">全站正确率 63%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'一个圆形花坛的半径是 4 米，求面积')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">2. 一个圆的直径是 6 厘米，它的面积是多少平方厘米？</div>
+              <div class="flex gap-8"><span class="tag">圆的面积</span><span class="tag tag-gray">难度 中</span><span class="tag tag-gray">全站正确率 58%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'圆的直径 6 厘米，求面积')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">3. 一个圆的周长是 12.56 厘米，它的面积是多少平方厘米？</div>
+              <div class="flex gap-8"><span class="tag">圆的面积</span><span class="tag tag-gray">难度 难</span><span class="tag tag-gray">全站正确率 45%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'周长 12.56 厘米，求面积')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">4. 正方形边长 8 厘米，内部有一个最大的圆，求阴影部分面积。</div>
+              <div class="flex gap-8"><span class="tag">组合图形</span><span class="tag tag-gray">难度 难</span><span class="tag tag-gray">全站正确率 38%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'正方形 8 厘米内含最大圆，求阴影面积')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">5. 环形花坛外圆半径 5 米，内圆半径 3 米，求花坛面积。</div>
+              <div class="flex gap-8"><span class="tag">圆环面积</span><span class="tag tag-gray">难度 难</span><span class="tag tag-gray">全站正确率 42%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'环形花坛外圆 5 米内圆 3 米，求面积')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">6. 圆的半径扩大到原来的 3 倍，面积扩大到原来的几倍？</div>
+              <div class="flex gap-8"><span class="tag">圆的面积</span><span class="tag tag-gray">难度 中</span><span class="tag tag-gray">全站正确率 71%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'半径扩大 3 倍，面积扩大几倍')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">7. 一个半圆的半径是 2 分米，它的面积是多少？</div>
+              <div class="flex gap-8"><span class="tag">圆的面积</span><span class="tag tag-gray">难度 易</span><span class="tag tag-gray">全站正确率 75%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'半圆半径 2 分米，求面积')">加入</button>
+          </div>
+
+          <div class="q-item" data-kp="圆的面积">
+            <div class="q-body">
+              <div class="q-text">8. 一个圆的面积是 50.24 平方米，它的半径是多少米？</div>
+              <div class="flex gap-8"><span class="tag">逆用公式</span><span class="tag tag-gray">难度 难</span><span class="tag tag-gray">全站正确率 40%</span></div>
+            </div>
+            <button class="btn btn-sm" onclick="addQ(this,'面积 50.24 平方米，求半径')">加入</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">已选题目 <span class="sub" id="basketCount">0 题</span></div>
+          <div id="basket">
+            <div class="muted small" style="padding:16px 0;text-align:center">
+              还没有选题<br>点左侧「加入」或上方「AI 一键组题」
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">下发设置</div>
+          <div class="setting-row">
+            <span>任务名称</span>
+            <span class="muted">第六讲 · 圆的面积</span>
+          </div>
+          <div class="setting-row">
+            <span>题量</span>
+            <select><option>8 题</option><option>10 题</option><option>15 题</option></select>
+          </div>
+          <div class="setting-row">
+            <span>难度策略</span>
+            <select><option>智能自适应</option><option>统一中等</option><option>由易到难</option></select>
+          </div>
+          <div class="setting-row">
+            <span>是否限时</span>
+            <select><option>不限时</option><option>15 分钟</option><option>20 分钟</option></select>
+          </div>
+          <div class="setting-row">
+            <span>截止</span>
+            <select><option>今天下课</option><option>今晚 22:00</option><option>明天上课前</option></select>
+          </div>
+          <div class="setting-row">
+            <span>接收对象</span>
+            <span class="muted">六(3)班 42 人</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var basket = [];
+function pickKp(btn, kp) {
+  var btns = document.querySelectorAll('.kp-btn');
+  for (var i = 0; i < btns.length; i++) { btns[i].className = 'kp-btn'; }
+  btn.className = 'kp-btn active';
+  document.getElementById('kpLabel').textContent = kp;
+  var items = document.querySelectorAll('.q-item');
+  for (var j = 0; j < items.length; j++) {
+    items[j].style.display = (items[j].getAttribute('data-kp') === kp) ? 'flex' : 'none';
+  }
+}
+function addQ(btn, text) {
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = '已加入';
+  basket.push(text);
+  render();
+}
+function render() {
+  var box = document.getElementById('basket');
+  document.getElementById('basketCount').textContent = basket.length + ' 题';
+  if (basket.length === 0) {
+    box.innerHTML = '<div class="muted small" style="padding:16px 0;text-align:center">还没有选题<br>点左侧「加入」或上方「AI 一键组题」</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < basket.length; i++) {
+    html += '<div class="basket-item"><span class="muted">' + (i + 1) + '.</span><span style="flex:1;line-height:1.6">' + basket[i] + '</span></div>';
+  }
+  box.innerHTML = html;
+}
+function aiCompose() {
+  basket = [
+    '一个圆形花坛的半径是 4 米，求面积',
+    '一个圆的直径是 6 厘米，求面积',
+    '圆的半径扩大 3 倍，面积扩大几倍',
+    '半圆半径 2 分米，求面积',
+    '周长 12.56 厘米，求面积',
+    '正方形 8 厘米内含最大圆，求阴影面积',
+    '环形花坛外圆 5 米内圆 3 米，求面积',
+    '面积 50.24 平方米，求半径'
+  ];
+  var btns = document.querySelectorAll('.q-item button');
+  for (var i = 0; i < btns.length; i++) { btns[i].disabled = true; btns[i].textContent = '已加入'; }
+  render();
+  alert('AI 已根据六(3)班薄弱点生成 8 题：\n\n· 覆盖了本班正确率低于 60% 的 3 个考点\n· 难度分布：易 2 / 中 3 / 难 3\n· 已避开上周已练的 5 道题');
+}
+function assign() {
+  var n = basket.length || 8;
+  alert('已下发到六(3)班 42 人\n\n题目 ' + n + ' 道 · 智能自适应难度 · 不限时\n截止：今天下课\n\n学生端已收到任务提醒');
+  location.href = 'teacher-dashboard.html';
+}
+</script>
+</body>
+</html>

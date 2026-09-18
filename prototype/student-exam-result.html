@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成绩报告 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .score-hero {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px 24px; margin-bottom: 16px;
+    text-align: center;
+  }
+  .score-big { font-size: 48px; font-weight: 500; line-height: 1; color: var(--success); }
+  .score-big .unit { font-size: 16px; color: var(--text-3); font-weight: 400; }
+  .rank-line { font-size: 14px; color: var(--text-2); margin-top: 10px; }
+  .mini-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+  .mini-grid > div { text-align: center; }
+  .mini-grid .v { font-size: 17px; font-weight: 500; }
+  .mini-grid .l { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+  .kp-row { margin-bottom: 14px; }
+  .kp-row-top { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+  .q-result { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .q-result:last-child { border-bottom: none; }
+  .q-res-mark { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #fff; flex-shrink: 0; }
+  .q-res-mark.ok { background: var(--success); }
+  .q-res-mark.no { background: var(--danger); }
+  .q-res-mark.skip { background: var(--m-none); }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <a class="topbar-back" href="student-exam.html">‹ 返回</a>
+    <div class="topbar-title">成绩报告</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="score-hero">
+      <div class="score-big">72<span class="unit"> / 100</span></div>
+      <div class="rank-line">班级排名 <b>21 / 42</b> · 超过全班 50% 的同学</div>
+      <div class="mini-grid">
+        <div><div class="v" style="color:var(--success)">14</div><div class="l">答对</div></div>
+        <div><div class="v" style="color:var(--danger)">6</div><div class="l">答错</div></div>
+        <div><div class="v">0</div><div class="l">未答</div></div>
+        <div><div class="v">41<span style="font-size:12px;color:var(--text-3)">′</span></div><div class="l">用时</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">各知识点得分率</div>
+
+      <div class="kp-row">
+        <div class="kp-row-top"><span>圆的周长</span><span><b style="color:var(--success)">100%</b> · 5/5</span></div>
+        <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+      </div>
+
+      <div class="kp-row">
+        <div class="kp-row-top"><span>圆的面积</span><span><b style="color:var(--warning)">80%</b> · 8/10</span></div>
+        <div class="progress"><div class="progress-bar warn" style="width:80%"></div></div>
+      </div>
+
+      <div class="kp-row">
+        <div class="kp-row-top"><span>组合图形面积</span><span><b style="color:var(--danger)">33%</b> · 2/6</span></div>
+        <div class="progress"><div class="progress-bar low" style="width:33%"></div></div>
+      </div>
+
+      <div class="kp-row" style="margin-bottom:0">
+        <div class="kp-row-top"><span>圆柱与圆锥</span><span><b style="color:var(--danger)">50%</b> · 4/8</span></div>
+        <div class="progress"><div class="progress-bar low" style="width:50%"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">逐题明细</div>
+      <div class="q-result"><div class="q-res-mark ok">✓</div><span>1. 圆的面积 · 基础</span><span class="muted" style="margin-left:auto">4 分</span></div>
+      <div class="q-result"><div class="q-res-mark ok">✓</div><span>2. 圆的面积 · 基础</span><span class="muted" style="margin-left:auto">4 分</span></div>
+      <div class="q-result"><div class="q-res-mark ok">✓</div><span>3. 圆的周长 · 基础</span><span class="muted" style="margin-left:auto">4 分</span></div>
+      <div class="q-result"><div class="q-res-mark no">✕</div><span>4. 组合图形面积 · 进阶</span><span class="muted" style="margin-left:auto">0 / 6 分</span></div>
+      <div class="q-result"><div class="q-res-mark no">✕</div><span>5. 圆柱与圆锥 · 进阶</span><span class="muted" style="margin-left:auto">0 / 6 分</span></div>
+      <div class="q-result"><div class="q-res-mark ok">✓</div><span>6. 圆的面积 · 进阶</span><span class="muted" style="margin-left:auto">4 分</span></div>
+      <div class="q-result" style="color:var(--text-3)"><span style="width:22px;text-align:center">⋯</span><span>其余 14 题</span><span class="muted" style="margin-left:auto">展开查看</span></div>
+      <button class="btn btn-block mt-16" onclick="alert('已展开全部 20 题的作答明细与解析')">展开全部题目</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">这张卷子暴露的问题</div>
+      <div class="ai-box" style="margin-top:0;border:none;background:#FAFBFC;padding:0">
+        <div class="ai-text">
+          <div style="margin-bottom:12px">
+            <b>1. 组合图形是你的短板</b><br>
+            <span class="muted" style="font-size:13px">6 分只拿到 2 分。原因是不会把复杂图形拆成简单图形，建议重看「圆的面积」视频课第 3 节。</span>
+          </div>
+          <div style="margin-bottom:12px">
+            <b>2. 圆柱与圆锥丢了一半分</b><br>
+            <span class="muted" style="font-size:13px">这是你掌握度最低的单元（42%），建议本周优先补。</span>
+          </div>
+          <div>
+            <b>3. 基础题几乎全对</b><br>
+            <span class="muted" style="font-size:13px">圆的周长 5 题全对，说明公式记得牢。问题不在计算，在思路。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">接下来做什么</div>
+      <div class="list-item">
+        <div class="list-main">
+          <div class="list-title">错题已自动进入错题本</div>
+          <div class="list-desc">6 道错题 · 会按遗忘曲线提醒你重做</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-wrongbook.html">去查看</a>
+      </div>
+      <div class="list-item">
+        <div class="list-main">
+          <div class="list-title">针对性练习已生成</div>
+          <div class="list-desc">10 道组合图形 + 圆柱专题</div>
+        </div>
+        <a class="btn btn-sm" href="student-drill.html">去练</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a href="student-home.html"><span class="ico"></span>今日</a>
+      <a class="active" href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

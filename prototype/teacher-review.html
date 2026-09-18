@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>讲评助手 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .layout { display: grid; grid-template-columns: 1fr 300px; gap: 16px; align-items: start; }
+  .wrong-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; }
+  .err-bar { height: 22px; background: #EDF0F3; border-radius: 4px; overflow: hidden; position: relative; }
+  .err-bar i { display: block; height: 100%; background: #E88; border-radius: 4px; }
+  .err-bar span { position: absolute; left: 10px; top: 0; line-height: 22px; font-size: 12px; color: var(--text); }
+  .dist-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 13px; }
+  .dist-key { width: 20px; text-align: center; color: var(--text-3); }
+  .dist-bar { flex: 1; height: 16px; background: #F2F4F6; border-radius: 3px; overflow: hidden; }
+  .dist-bar i { display: block; height: 100%; background: #D6DAE0; }
+  .dist-bar i.hot { background: var(--danger); }
+  .dist-num { width: 60px; text-align: right; color: var(--text-3); font-size: 12px; }
+  .point-item { display: flex; gap: 8px; font-size: 13px; line-height: 1.7; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a href="teacher-dashboard.html">课堂看板</a>
+      <a href="teacher-assign.html">布置任务</a>
+      <a class="active" href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html">考试</a>
+      <a href="teacher-student.html">学生档案</a>
+      <a href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div style="margin-bottom:16px">
+      <div style="font-size:18px;font-weight:500">讲评助手</div>
+      <div class="small muted" style="margin-top:2px">第六讲 · 圆的面积 · 按全班错误率排序</div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="wrong-card">
+          <div class="row-between" style="margin-bottom:12px">
+            <span class="tag tag-red">错误率 62%</span>
+            <span class="small muted">26 / 42 人答错</span>
+          </div>
+          <div style="font-size:15px;line-height:1.7;margin-bottom:14px">
+            4. 正方形边长 8 厘米，内部有一个最大的圆，求阴影部分的面积。
+          </div>
+          <div style="margin-bottom:14px">
+            <div class="small muted" style="margin-bottom:6px">学生答案分布</div>
+            <div class="dist-row"><span class="dist-key">A</span><div class="dist-bar"><i style="width:26%"></i></div><span class="dist-num">11 人</span></div>
+            <div class="dist-row"><span class="dist-key">B</span><div class="dist-bar"><i class="hot" style="width:36%"></i></div><span class="dist-num">15 人</span></div>
+            <div class="dist-row"><span class="dist-key">C</span><div class="dist-bar"><i style="width:38%"></i></div><span class="dist-num">16 人</span></div>
+            <div class="dist-row"><span class="dist-key">D</span><div class="dist-bar"><i style="width:0%"></i></div><span class="dist-num">0 人</span></div>
+          </div>
+          <div class="ai-box" style="margin-top:0">
+            <div class="ai-box-head"><span class="ai-badge">AI</span>错因分析</div>
+            <div class="ai-text">
+              选 B 的 15 人是<b>只算了圆的面积，忘了减去</b>。选 A 的 11 人<b>把正方形面积当成了阴影</b>。<br>
+              共性问题：不会把组合图形拆成「正方形 - 圆」。建议讲评时先带着学生画拆分线。
+            </div>
+          </div>
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+            <div class="small muted" style="margin-bottom:8px">讲评要点</div>
+            <div class="point-item"><span class="muted">1.</span><span>先确定「整体 - 空白 = 阴影」的思路</span></div>
+            <div class="point-item"><span class="muted">2.</span><span>正方形内最大圆：圆的直径 = 正方形边长 = 8，半径 = 4</span></div>
+            <div class="point-item"><span class="muted">3.</span><span>8 × 8 - 3.14 × 4² = 64 - 50.24 = 13.76（平方厘米）</span></div>
+          </div>
+          <div style="margin-top:14px" class="flex gap-8">
+            <button class="btn btn-blue" onclick="alert('已推送给答错的 26 人，作为今晚作业')">推给答错学生</button>
+          </div>
+        </div>
+
+        <div class="wrong-card">
+          <div class="row-between" style="margin-bottom:12px">
+            <span class="tag tag-red">错误率 60%</span>
+            <span class="small muted">25 / 42 人答错</span>
+          </div>
+          <div style="font-size:15px;line-height:1.7;margin-bottom:14px">
+            8. 一个圆的面积是 50.24 平方米，它的半径是多少米？
+          </div>
+          <div style="margin-bottom:14px">
+            <div class="small muted" style="margin-bottom:6px">学生答案分布</div>
+            <div class="dist-row"><span class="dist-key">A</span><div class="dist-bar"><i class="hot" style="width:40%"></i></div><span class="dist-num">17 人</span></div>
+            <div class="dist-row"><span class="dist-key">B</span><div class="dist-bar"><i style="width:20%"></i></div><span class="dist-num">8 人</span></div>
+            <div class="dist-row"><span class="dist-key">C</span><div class="dist-bar"><i style="width:40%"></i></div><span class="dist-num">17 人</span></div>
+            <div class="dist-row"><span class="dist-key">D</span><div class="dist-bar"><i style="width:0%"></i></div><span class="dist-num">0 人</span></div>
+          </div>
+          <div class="ai-box" style="margin-top:0">
+            <div class="ai-box-head"><span class="ai-badge">AI</span>错因分析</div>
+            <div class="ai-text">
+              这是公式<b>逆用</b>，需要先由 50.24 ÷ 3.14 = 16 推出 r² = 16，再想「哪个数的平方是 16」。<br>
+              17 人卡在最后一步，说明<b>平方数不熟</b>。建议课下补练 1-20 的平方数。
+            </div>
+          </div>
+          <div style="margin-top:14px" class="flex gap-8">
+            <button class="btn btn-blue" onclick="alert('已推送给答错的 25 人')">推给答错学生</button>
+          </div>
+        </div>
+
+        <div class="wrong-card">
+          <div class="row-between" style="margin-bottom:12px">
+            <span class="tag tag-amber">错误率 42%</span>
+            <span class="small muted">18 / 42 人答错</span>
+          </div>
+          <div style="font-size:15px;line-height:1.7;margin-bottom:14px">
+            2. 一个圆的直径是 6 厘米，它的面积是多少平方厘米？
+          </div>
+          <div style="margin-bottom:14px">
+            <div class="small muted" style="margin-bottom:6px">学生答案分布</div>
+            <div class="dist-row"><span class="dist-key">A</span><div class="dist-bar"><i style="width:17%"></i></div><span class="dist-num">7 人</span></div>
+            <div class="dist-row"><span class="dist-key">B</span><div class="dist-bar"><i class="hot" style="width:43%"></i></div><span class="dist-num">18 人</span></div>
+            <div class="dist-row"><span class="dist-key">C</span><div class="dist-bar"><i style="width:40%"></i></div><span class="dist-num">17 人</span></div>
+            <div class="dist-row"><span class="dist-key">D</span><div class="dist-bar"><i style="width:0%"></i></div><span class="dist-num">0 人</span></div>
+          </div>
+          <div class="ai-box" style="margin-top:0">
+            <div class="ai-box-head"><span class="ai-badge">AI</span>错因分析</div>
+            <div class="ai-text">
+              18 人<b>直接把直径 6 当半径代入</b>了。这是本讲最高频的失误。<br>
+              建议讲评时强调一句口诀：<b>给直径，先减半</b>。
+            </div>
+          </div>
+          <div style="margin-top:14px" class="flex gap-8">
+            <button class="btn btn-blue" onclick="alert('已推送给答错的 18 人')">推给答错学生</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">建议讲评顺序</div>
+          <div class="small muted" style="margin-bottom:12px">剩余 12 分钟，AI 建议讲这 3 题</div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px">1. 组合图形阴影</div><div class="list-desc">62% · 约 5 分钟</div></div>
+            <span class="tag tag-red">必讲</span>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px">2. 面积求半径</div><div class="list-desc">60% · 约 4 分钟</div></div>
+            <span class="tag tag-red">必讲</span>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px">3. 直径当半径</div><div class="list-desc">42% · 约 2 分钟</div></div>
+            <span class="tag tag-amber">选讲</span>
+          </div>
+          <button class="btn btn-block btn-blue mt-16" onclick="alert('已为答错的 25 人生成讲解内容，推送至学生端')">推送讲解给学生</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">本讲知识点掌握</div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-high"></i>圆的周长计算</div></div>
+            <div class="list-right small">89%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-mid"></i>半径直径换算</div></div>
+            <div class="list-right small">68%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-low"></i>圆的面积公式应用</div></div>
+            <div class="list-right small">54%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-low"></i>组合图形面积</div></div>
+            <div class="list-right small">38%</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">课后补救</div>
+          <div class="small muted" style="margin-bottom:12px">
+            组合图形全班仅 38%，建议下节课前 5 分钟重讲，并给 26 名答错学生推同类题。
+          </div>
+          <button class="btn btn-block" onclick="alert('已为 26 人生成同类练习，下节课前完成')">生成补救练习</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

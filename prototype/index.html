@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小升初 AI 智能伴学系统</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .entry { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+  .entry-box { width: 100%; max-width: 420px; }
+  .entry-head { text-align: center; margin-bottom: 32px; }
+  .entry-head h1 { font-size: 22px; font-weight: 500; margin-bottom: 8px; }
+  .entry-head p { font-size: 14px; color: var(--text-3); }
+  .role-card {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px;
+    transition: all .15s;
+  }
+  .role-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .role-ico { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; flex-shrink: 0; }
+  .role-ico.s { background: var(--brand); }
+  .role-ico.t { background: var(--blue); }
+  .role-ico.a { background: var(--text-2); }
+  .role-name { font-size: 15px; font-weight: 500; }
+  .role-desc { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+  .role-arrow { margin-left: auto; color: var(--text-3); font-size: 18px; }
+  .entry-foot { text-align: center; margin-top: 28px; font-size: 12px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<div class="entry">
+  <div class="entry-box">
+    <div class="entry-head">
+      <h1>小升初 AI 智能伴学系统</h1>
+      <p>六年级 · 数学 · 第六讲</p>
+    </div>
+
+    <a class="role-card" href="student-home.html">
+      <div class="role-ico s">学</div>
+      <div>
+        <div class="role-name">学生端</div>
+        <div class="role-desc">做任务、练题目、看掌握度</div>
+      </div>
+      <div class="role-arrow">›</div>
+    </a>
+
+    <a class="role-card" href="teacher-dashboard.html">
+      <div class="role-ico t">师</div>
+      <div>
+        <div class="role-name">教师端</div>
+        <div class="role-desc">看全班进度、精准讲评</div>
+      </div>
+      <div class="role-arrow">›</div>
+    </a>
+
+    <a class="role-card" href="admin-dashboard.html">
+      <div class="role-ico a">管</div>
+      <div>
+        <div class="role-name">管理端</div>
+        <div class="role-desc">机构数据、用户与教学质量</div>
+      </div>
+      <div class="role-arrow">›</div>
+    </a>
+
+    <div class="entry-foot">原型演示 · 数据为模拟数据</div>
+  </div>
+</div>
+</body>
+</html>

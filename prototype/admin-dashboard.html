@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 21 页 · 数据总览 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据总览 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式（均使用设计令牌） ---- */
+  .stat-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stat-top .spark{flex-shrink:0;margin-top:4px}
+
+  .health-metrics{display:flex;gap:16px;text-align:center}
+  .health-col{flex:1}
+  .health-col .h-name{font-size:13px;margin-top:10px}
+  .health-col .h-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+
+  .trend-row{display:flex;align-items:center;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .trend-row:last-child{border-bottom:none}
+  .trend-row .t-label{width:120px;flex-shrink:0}
+  .trend-row .t-label .tl{font-size:13px}
+  .trend-row .t-label .tv{font-size:12px;color:var(--text-3);margin-top:2px}
+  .trend-row .spark{flex:1;width:auto;height:44px}
+
+  .warn-link{display:flex;align-items:center;gap:12px;padding:14px;
+    border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:10px;transition:all .15s}
+  .warn-link:last-child{margin-bottom:0}
+  .warn-link:hover{border-color:var(--border-strong);background:var(--row-hover)}
+  .warn-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;
+    justify-content:center;font-size:15px;flex-shrink:0}
+  .warn-ico.hi{background:var(--risk-high-bg);color:var(--risk-high)}
+  .warn-ico.mid{background:var(--risk-mid-bg);color:var(--risk-mid)}
+  .warn-ico.lo{background:var(--risk-low-bg);color:var(--risk-low)}
+  .warn-link .arrow{margin-left:auto;color:var(--text-3);font-size:16px}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a class="active" href="admin-dashboard.html">数据总览</a>
+      <a href="admin-users.html">用户管理</a>
+      <a href="admin-classes.html">班级排课</a>
+      <a href="admin-questionbank.html">题库管理</a>
+      <a href="admin-teaching.html">教学质量</a>
+      <a href="admin-renewal.html">续费预警</a>
+      <a href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="mb-12" style="margin-bottom:18px">
+      <div class="page-title">数据总览</div>
+      <div class="page-sub">机构本月经营概况 · 2026-09 · 每周一自动刷新</div>
+    </div>
+
+    <!-- 核心指标卡 ×4 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">在读学员</div>
+            <div class="stat-value">386<span class="unit">人</span></div>
+            <div class="stat-sub stat-up">较上月 +18</div>
+          </div>
+          <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+            <polygon class="area" points="0,36 0,28 20,25 40,27 60,19 80,15 100,11 120,7 120,36"/>
+            <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,28 20,25 40,27 60,19 80,15 100,11 120,7"/>
+            <circle class="dot" cx="120" cy="7" r="2.6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">本月续费率</div>
+            <div class="stat-value">78<span class="unit">%</span></div>
+            <div class="stat-sub stat-up">较上月 +4%</div>
+          </div>
+          <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+            <polygon class="area" points="0,36 0,24 20,22 40,26 60,20 80,18 100,13 120,10 120,36"/>
+            <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,24 20,22 40,26 60,20 80,18 100,13 120,10"/>
+            <circle class="dot" cx="120" cy="10" r="2.6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">平均掌握度</div>
+            <div class="stat-value">70<span class="unit">%</span></div>
+            <div class="stat-sub stat-down">较上月 -1%</div>
+          </div>
+          <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+            <polygon class="area" points="0,36 0,12 20,11 40,14 60,16 80,15 100,19 120,21 120,36"/>
+            <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,12 20,11 40,14 60,16 80,15 100,19 120,21"/>
+            <circle class="dot" cx="120" cy="21" r="2.6"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <div>
+            <div class="stat-label">7 天活跃率</div>
+            <div class="stat-value">64<span class="unit">%</span></div>
+            <div class="stat-sub stat-up">较上月 +6%</div>
+          </div>
+          <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+            <polygon class="area" points="0,36 0,26 20,28 40,23 60,22 80,18 100,16 120,12 120,36"/>
+            <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,26 20,28 40,23 60,22 80,18 100,16 120,12"/>
+            <circle class="dot" cx="120" cy="12" r="2.6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI 一句话经营简报 -->
+    <div class="ai-box" style="margin-top:0;margin-bottom:16px">
+      <div class="ai-box-head"><span class="ai-badge">AI</span>本周经营简报</div>
+      <div class="ai-text">
+        本周新增 18 名学员，续费率环比上升 4 个百分点；但六(4)班、六(7)班掌握度连续两周下滑，续费风险人数增至 23 人，建议本周优先安排这两个班的家校沟通。
+      </div>
+    </div>
+
+    <!-- 主栏 + 辅助栏 -->
+    <div class="grid-main">
+      <div>
+        <!-- 教学健康条 -->
+        <div class="card">
+          <div class="card-title">教学健康条 <span class="sub">2026 年 9 月</span></div>
+          <div class="health-metrics">
+            <div class="health-col">
+              <div class="donut" style="--p:76"><span class="val">76%</span></div>
+              <div class="h-name">课消进度</div>
+              <div class="h-sub num">2,140 / 2,800 课时</div>
+            </div>
+            <div class="health-col">
+              <div class="donut" style="--p:95;--c:var(--viz-2)"><span class="val">95%</span></div>
+              <div class="h-name">完课率</div>
+              <div class="h-sub num">368 / 386 人</div>
+            </div>
+            <div class="health-col">
+              <div class="donut" style="--p:88;--c:var(--viz-3)"><span class="val">88%</span></div>
+              <div class="h-name">批改及时率</div>
+              <div class="h-sub">24 小时内批改</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="row-between" style="font-size:13px;margin-bottom:8px">
+            <span>本月课消进度</span>
+            <span class="num muted">已消 2,140 / 计划 2,800</span>
+          </div>
+          <div class="progress"><div class="progress-bar blue" style="width:76%"></div></div>
+          <div class="hint" style="margin-top:8px">距本月计划还差 660 课时，按当前节奏可在月底前完成。</div>
+        </div>
+
+        <!-- 近 30 天趋势 -->
+        <div class="card">
+          <div class="card-title">近 30 天趋势 <span class="sub">每日更新</span></div>
+          <div class="trend-row">
+            <div class="t-label">
+              <div class="tl">新增学员</div>
+              <div class="tv num">累计 +46 人</div>
+            </div>
+            <svg class="spark" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
+              <polygon class="area" points="0,44 0,30 50,26 100,30 150,20 200,16 250,12 300,8 300,44"/>
+              <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,30 50,26 100,30 150,20 200,16 250,12 300,8"/>
+              <circle class="dot" cx="300" cy="8" r="3"/>
+            </svg>
+          </div>
+          <div class="trend-row">
+            <div class="t-label">
+              <div class="tl">课消课时</div>
+              <div class="tv num">累计 2,140 节</div>
+            </div>
+            <svg class="spark" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
+              <polygon class="area" points="0,44 0,22 50,24 100,20 150,22 200,16 250,14 300,10 300,44"/>
+              <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,22 50,24 100,20 150,22 200,16 250,14 300,10"/>
+              <circle class="dot" cx="300" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div class="trend-row">
+            <div class="t-label">
+              <div class="tl">7 天活跃率</div>
+              <div class="tv num">当前 64%</div>
+            </div>
+            <svg class="spark" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
+              <polygon class="area" points="0,44 0,28 50,30 100,24 150,26 200,18 250,16 300,14 300,44"/>
+              <polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="0,28 50,30 100,24 150,26 200,18 250,16 300,14"/>
+              <circle class="dot" cx="300" cy="14" r="3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧辅助栏：待处理预警入口 -->
+      <div>
+        <div class="card">
+          <div class="card-title">待处理预警 <span class="sub">3 项</span></div>
+          <a class="warn-link" href="admin-renewal.html">
+            <div class="warn-ico hi">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:500">23 人续费高风险</div>
+              <div class="hint">课时将尽 · 长期缺课 · 掌握度下滑</div>
+            </div>
+            <span class="arrow">›</span>
+          </a>
+          <a class="warn-link" href="admin-teaching.html">
+            <div class="warn-ico mid">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:500">2 个班需干预</div>
+              <div class="hint">六(4)、六(7) 掌握度连续两周下滑</div>
+            </div>
+            <span class="arrow">›</span>
+          </a>
+          <a class="warn-link" href="admin-questionbank.html">
+            <div class="warn-ico lo">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:500">打标缺口 6 个知识点</div>
+              <div class="hint">题量不足 25 题，影响组卷覆盖</div>
+            </div>
+            <span class="arrow">›</span>
+          </a>
+        </div>
+
+        <div class="card">
+          <div class="card-title">本月概况</div>
+          <div class="list-item" style="padding:10px 0">
+            <div class="list-main"><div class="list-title" style="font-size:13px">在教老师</div></div>
+            <div class="list-right num">9 位</div>
+          </div>
+          <div class="list-item" style="padding:10px 0">
+            <div class="list-main"><div class="list-title" style="font-size:13px">在排班级</div></div>
+            <div class="list-right num">10 个</div>
+          </div>
+          <div class="list-item" style="padding:10px 0">
+            <div class="list-main"><div class="list-title" style="font-size:13px">题库总量</div></div>
+            <div class="list-right num">1,248 题</div>
+          </div>
+          <div class="list-item" style="padding:10px 0">
+            <div class="list-main"><div class="list-title" style="font-size:13px">本月新增学员</div></div>
+            <div class="list-right num">18 人</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

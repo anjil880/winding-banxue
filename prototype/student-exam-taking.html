@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考试中 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .exam-top {
+    background: var(--card); border-bottom: 1px solid var(--border);
+    padding: 0 20px; height: 58px; display: flex; align-items: center;
+    justify-content: space-between; position: sticky; top: 0; z-index: 20;
+  }
+  .timer { font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .timer.warn { color: var(--danger); }
+  .card-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .qnum {
+    aspect-ratio: 1; border: 1px solid var(--border); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; cursor: pointer; background: var(--card);
+  }
+  .qnum:hover { border-color: var(--border-strong); }
+  .qnum.done { background: var(--blue-soft); border-color: #C9DFF4; color: var(--blue); }
+  .qnum.current { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 500; }
+  .qnum.marked { border-color: var(--warning); color: var(--warning); }
+  .qnum.marked.done { background: #FDF3E3; }
+  .layout { display: grid; grid-template-columns: 1fr 250px; gap: 16px; align-items: start; }
+  .stem-input input {
+    width: 200px; padding: 9px 12px; border: 1px solid var(--border-strong);
+    border-radius: 8px; font-size: 15px; font-family: inherit;
+  }
+  .photo-box {
+    border: 1px dashed var(--border-strong); border-radius: 8px;
+    padding: 24px; text-align: center; color: var(--text-3); font-size: 13px;
+    background: #FAFBFC; cursor: pointer;
+  }
+  .photo-box:hover { border-color: var(--brand); color: var(--brand); }
+</style>
+</head>
+<body>
+<div class="exam-top">
+  <div style="display:flex;align-items:center;gap:14px">
+    <span style="font-size:15px;font-weight:500">第六单元模拟考</span>
+    <span class="tag tag-gray">总分 100</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="timer" id="timer">44:52</div>
+    <button class="btn btn-sm btn-primary" onclick="submitAll()">交卷</button>
+  </div>
+</div>
+
+<div class="student-shell" style="padding-bottom:88px;max-width:1000px">
+  <div class="content">
+    <div class="layout">
+      <div>
+        <div style="margin-bottom:16px">
+          <div class="row-between" style="margin-bottom:8px">
+            <span class="small muted">第 1 题 / 共 20 题 · 已答 0 题</span>
+            <button class="tag tag-amber" id="markBtn" onclick="toggleMark()">标记疑题</button>
+          </div>
+          <div class="progress"><div class="progress-bar blue" style="width:5%"></div></div>
+        </div>
+
+        <div class="card">
+          <div class="row-between" style="margin-bottom:14px">
+            <span class="tag tag-blue">圆的面积</span>
+            <span class="tag tag-gray">4 分</span>
+          </div>
+          <div class="question-stem">
+            <span class="num">1.</span>一个圆形花坛的半径是 5 米，它的面积是多少平方米？
+          </div>
+          <div class="option" onclick="select(this)">
+            <div class="option-key">A</div>
+            <div class="option-text">15.7 平方米</div>
+          </div>
+          <div class="option" onclick="select(this)">
+            <div class="option-key">B</div>
+            <div class="option-text">31.4 平方米</div>
+          </div>
+          <div class="option" onclick="select(this)">
+            <div class="option-key">C</div>
+            <div class="option-text">78.5 平方米</div>
+          </div>
+          <div class="option" onclick="select(this)">
+            <div class="option-key">D</div>
+            <div class="option-text">157 平方米</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="row-between" style="margin-bottom:14px">
+            <span class="tag tag-blue">组合图形面积</span>
+            <span class="tag tag-gray">6 分 · 主观题</span>
+          </div>
+          <div class="question-stem">
+            <span class="num">2.</span>正方形边长 10 厘米，内部有一个最大的圆。求阴影部分的面积（写出计算过程）。
+          </div>
+          <div class="photo-box" onclick="alert('已上传照片，AI 将识别你的解题过程')">
+            <div style="font-size:22px;margin-bottom:8px">+</div>
+            拍照上传解题过程<br>
+            <span style="font-size:12px">也可以直接输入答案</span>
+          </div>
+          <div class="mt-16">
+            <input type="text" placeholder="或在此输入最终答案" style="width:100%;padding:11px 14px;border:1px solid var(--border-strong);border-radius:8px;font-size:15px;font-family:inherit">
+          </div>
+        </div>
+
+        <div class="flex gap-8">
+          <button class="btn" style="flex:1" disabled>上一题</button>
+          <button class="btn btn-blue" style="flex:2" onclick="alert('进入下一题')">下一题</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">答题卡</div>
+          <div class="card-grid" id="cardGrid"></div>
+          <div class="divider"></div>
+          <div style="font-size:12px;line-height:2;color:var(--text-2)">
+            <div><i class="m-dot" style="background:var(--blue-soft);border:1px solid #C9DFF4"></i>已作答</div>
+            <div><i class="m-dot" style="background:var(--card);border:1px solid var(--border-strong)"></i>未作答</div>
+            <div><i class="m-dot" style="background:#FDF3E3;border:1px solid var(--warning)"></i>已标记</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-size:13px;color:var(--text-2);line-height:1.9">
+            考试期间请不要切出页面，切出会被记录。<br>
+            交卷后立即出分，可以看错题解析。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var total = 20;
+var grid = document.getElementById('cardGrid');
+var html = '';
+for (var i = 1; i <= total; i++) {
+  var cls = 'qnum';
+  if (i === 1) cls += ' current';
+  if ([3, 7, 12, 18].indexOf(i) > -1) cls += ' done';
+  if (i === 5) cls += ' marked';
+  html += '<div class="' + cls + '">' + i + '</div>';
+}
+grid.innerHTML = html;
+
+var marked = false;
+function toggleMark() {
+  marked = !marked;
+  var b = document.getElementById('markBtn');
+  b.className = marked ? 'tag tag-amber' : 'tag tag-gray';
+  b.textContent = marked ? '已标记' : '标记疑题';
+}
+function select(el) {
+  var opts = document.querySelectorAll('.option');
+  for (var i = 0; i < opts.length; i++) { opts[i].classList.remove('selected'); }
+  el.classList.add('selected');
+}
+function submitAll() {
+  if (confirm('确定交卷吗？\n\n已答 4 / 20 题，还有 16 题未作答。')) {
+    location.href = 'student-exam-result.html';
+  }
+}
+
+var left = 44 * 60 + 52;
+var t = document.getElementById('timer');
+setInterval(function() {
+  if (left <= 0) return;
+  left--;
+  var m = Math.floor(left / 60);
+  var s = left % 60;
+  t.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  if (left < 600) t.className = 'timer warn';
+}, 1000);
+</script>
+</body>
+</html>

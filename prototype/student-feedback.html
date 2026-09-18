@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>批改反馈 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 12px 20px; z-index: 30;
+  }
+  .bottom-inner { max-width: 780px; margin: 0 auto; display: flex; gap: 12px; }
+  .mastery-change {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 16px;
+  }
+  .mc-num { font-size: 22px; font-weight: 500; }
+  .step-line { display: flex; gap: 10px; margin-bottom: 10px; font-size: 14px; line-height: 1.8; }
+  .step-line .no { color: var(--text-3); flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="student-shell" style="padding-bottom:88px">
+  <div class="topbar">
+    <a class="topbar-back" href="student-practice.html">‹ 返回</a>
+    <div class="topbar-title">批改反馈</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="result-banner" id="banner">
+      <div class="result-icon" id="rIcon">✓</div>
+      <div>
+        <div class="result-text" id="rText">回答正确</div>
+        <div class="result-sub" id="rSub">用时 18 秒</div>
+      </div>
+    </div>
+
+    <div class="mastery-change">
+      <div>
+        <div class="stat-label">圆的面积 · 掌握度</div>
+        <div class="mc-num" id="mNum">62%</div>
+      </div>
+      <div style="text-align:right">
+        <div class="stat-label">本次变化</div>
+        <div id="mChange" style="font-size:16px;font-weight:500">+3%</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">题目回顾</div>
+      <div class="question-stem" style="font-size:15px;margin-bottom:14px">
+        <span class="num">1.</span>一个圆形花坛的半径是 4 米，它的面积是多少平方米？
+      </div>
+
+      <div class="option" id="optA">
+        <div class="option-key">A</div>
+        <div class="option-text">12.56 平方米</div>
+      </div>
+      <div class="option" id="optB">
+        <div class="option-key">B</div>
+        <div class="option-text">25.12 平方米</div>
+      </div>
+      <div class="option" id="optC">
+        <div class="option-key">C</div>
+        <div class="option-text">50.24 平方米</div>
+      </div>
+      <div class="option" id="optD">
+        <div class="option-key">D</div>
+        <div class="option-text">100.48 平方米</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">解题步骤</div>
+      <div class="step-line"><span class="no">1.</span><span>写出公式：S = πr²</span></div>
+      <div class="step-line"><span class="no">2.</span><span>代入数据：S = 3.14 × 4²</span></div>
+      <div class="step-line"><span class="no">3.</span><span>先算平方：4² = 16</span></div>
+      <div class="step-line"><span class="no">4.</span><span>得出结果：S = 3.14 × 16 = <b>50.24</b>（平方米）</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">AI 讲解</div>
+      <div class="ai-box" style="margin-top:0;border:none;background:#FAFBFC">
+        <div class="ai-box-head"><span class="ai-badge">AI</span>针对你的答案</div>
+        <div class="ai-text" id="aiText"></div>
+      </div>
+    </div>
+
+    <div class="card" id="nextPlan">
+      <div class="card-title">接下来</div>
+      <div class="list-item">
+        <div class="list-main">
+          <div class="list-title" id="planTitle">继续练习</div>
+          <div class="list-desc" id="planDesc">难度将提升一档</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-inner">
+      <a class="btn btn-lg" style="flex:0 0 120px" href="student-wrongbook.html">看错题本</a>
+      <a class="btn btn-primary btn-lg" style="flex:1" href="student-practice.html">下一题</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function getParam(n) {
+  var m = new RegExp('[?&]' + n + '=([^&]*)').exec(location.search);
+  return m ? decodeURIComponent(m[1]) : '';
+}
+var ans = getParam('ans') || 'C';
+var ok = getParam('ok') === '1';
+
+var banner = document.getElementById('banner');
+var rIcon = document.getElementById('rIcon');
+var rText = document.getElementById('rText');
+var rSub = document.getElementById('rSub');
+
+if (ok) {
+  banner.className = 'result-banner ok';
+  rIcon.textContent = '✓';
+  rText.textContent = '回答正确';
+  rSub.textContent = '用时 18 秒，全班平均 24 秒';
+  document.getElementById('mNum').textContent = '65%';
+  document.getElementById('mChange').textContent = '+3%';
+  document.getElementById('mChange').style.color = 'var(--success)';
+  document.getElementById('planTitle').textContent = '继续练习';
+  document.getElementById('planDesc').textContent = '连对 1 题，再答对 1 题难度将提升';
+} else {
+  banner.className = 'result-banner no';
+  rIcon.textContent = '✕';
+  rText.textContent = '回答错误';
+  rSub.textContent = '全班有 37% 的同学也选了这个选项';
+  document.getElementById('mNum').textContent = '60%';
+  document.getElementById('mChange').textContent = '-2%';
+  document.getElementById('mChange').style.color = 'var(--danger)';
+  document.getElementById('planTitle').textContent = '已加入错题本，并推送 2 道同类题';
+  document.getElementById('planDesc').textContent = '第 2 天、第 7 天、第 15 天会再让你做一遍';
+}
+
+document.getElementById('opt' + ans).classList.add('wrong');
+document.getElementById('optC').classList.add('correct');
+
+var aiMap = {
+  'A': '你选了 12.56，这是用 <b>π × r</b> 算出来的，只乘了一次半径。<br><br>圆的面积公式是 <b>S = πr²</b>，r² 表示 r × r，要乘两次。这道题 r = 4，所以是 3.14 × 4 × 4 = 50.24。<br><br>记住：面积是「平方」，一定要乘两次半径。',
+  'B': '你选了 25.12，这是 <b>2 × π × r</b>，算的是<b>周长</b>不是面积。<br><br>周长公式 C = 2πr，面积公式 S = πr²。两个公式长得像，容易搞混。<br><br>区分方法：周长是一圈的长度（单位：米），面积是表面的大小（单位：平方米）。',
+  'C': '答对了。公式用得很准，而且你没有把 4² 算成 4 × 2 = 8 —— 这是很多人会犯的错。<br><br>下一题会加大一点难度，试试组合图形的面积。',
+  'D': '你选了 100.48，正好是正确答案的 2 倍，说明公式里可能多乘了一个 2。<br><br>面积公式 S = πr² 里<b>没有 2</b>，那个 2 是周长公式 C = 2πr 里的。两个公式别串了。'
+};
+document.getElementById('aiText').innerHTML = aiMap[ans] || aiMap['C'];
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的掌握度 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .overview { display: flex; align-items: center; gap: 20px; }
+  .ring-wrap { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+  .ring-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring-num .v { font-size: 26px; font-weight: 500; line-height: 1; }
+  .ring-num .l { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .legend span { font-size: 12px; color: var(--text-2); display: flex; align-items: center; }
+  .kp-group { margin-bottom: 18px; }
+  .kp-group-title { font-size: 13px; color: var(--text-3); margin-bottom: 10px; }
+  .kp-node { width: calc(50% - 5px); }
+  .kp-val { font-weight: 500; }
+  .weak-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .weak-item:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <a class="topbar-back" href="student-home.html">‹ 返回</a>
+    <div class="topbar-title">我的掌握度</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <div class="overview">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 110 110" width="110" height="110">
+            <circle cx="55" cy="55" r="45" fill="none" stroke="#EDF0F3" stroke-width="10"/>
+            <circle cx="55" cy="55" r="45" fill="none" stroke="#1D9E75" stroke-width="10"
+              stroke-dasharray="283" stroke-dashoffset="63" stroke-linecap="round"
+              transform="rotate(-90 55 55)"/>
+          </svg>
+          <div class="ring-num">
+            <div class="v">78%</div>
+            <div class="l">总体掌握度</div>
+          </div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:14px;margin-bottom:6px">高于班级平均 <b>71%</b></div>
+          <div class="small muted" style="margin-bottom:10px">已诊断 16 个知识点，还有 2 个未诊断</div>
+          <div class="progress" style="margin-bottom:6px"><div class="progress-bar" style="width:78%"></div></div>
+          <div class="small muted">距离「优秀」还差 7 分</div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="m-dot m-high"></i>掌握 ≥80%</span>
+        <span><i class="m-dot m-mid"></i>一般 50-79%</span>
+        <span><i class="m-dot m-low"></i>薄弱 &lt;50%</span>
+        <span><i class="m-dot m-none"></i>未诊断</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">六年级数学 · 知识点图谱</div>
+
+      <div class="kp-group">
+        <div class="kp-group-title">数与运算</div>
+        <div class="node-row">
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-high"></i>分数乘法</div>
+            <div class="kp-val" style="color:var(--m-high)">85%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>分数除法</div>
+            <div class="kp-val" style="color:var(--m-mid)">55%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>分数四则混合</div>
+            <div class="kp-val" style="color:var(--m-mid)">72%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-low"></i>百分数应用题</div>
+            <div class="kp-val" style="color:var(--m-low)">48%</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="kp-group">
+        <div class="kp-group-title">图形与几何</div>
+        <div class="node-row">
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-high"></i>圆的认识</div>
+            <div class="kp-val" style="color:var(--m-high)">88%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>圆的周长</div>
+            <div class="kp-val" style="color:var(--m-mid)">76%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>圆的面积</div>
+            <div class="kp-val" style="color:var(--m-mid)">62%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-low"></i>圆柱与圆锥</div>
+            <div class="kp-val" style="color:var(--m-low)">42%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-high"></i>位置与方向</div>
+            <div class="kp-val" style="color:var(--m-high)">90%</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="kp-group">
+        <div class="kp-group-title">比和比例</div>
+        <div class="node-row">
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-high"></i>比的意义</div>
+            <div class="kp-val" style="color:var(--m-high)">80%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>比例的基本性质</div>
+            <div class="kp-val" style="color:var(--m-mid)">68%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>比例尺</div>
+            <div class="kp-val" style="color:var(--m-mid)">52%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-low"></i>正比例反比例</div>
+            <div class="kp-val" style="color:var(--m-low)">45%</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="kp-group">
+        <div class="kp-group-title">统计与综合</div>
+        <div class="node-row">
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-high"></i>扇形统计图</div>
+            <div class="kp-val" style="color:var(--m-high)">85%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-high"></i>负数</div>
+            <div class="kp-val" style="color:var(--m-high)">92%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-mid"></i>数学广角</div>
+            <div class="kp-val" style="color:var(--m-mid)">60%</div>
+          </a>
+          <a class="kp-node" href="student-practice.html">
+            <div class="kp-name"><i class="m-dot m-none"></i>行程问题</div>
+            <div class="kp-val" style="color:var(--m-none)">未诊断</div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">薄弱知识点 <span class="sub">建议优先攻克</span></div>
+      <div class="weak-item">
+        <div style="flex:1">
+          <div style="font-size:14px">圆柱与圆锥</div>
+          <div class="small muted">42% · 已错 6 题</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-practice.html">去练</a>
+      </div>
+      <div class="weak-item">
+        <div style="flex:1">
+          <div style="font-size:14px">正比例反比例</div>
+          <div class="small muted">45% · 已错 4 题</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-practice.html">去练</a>
+      </div>
+      <div class="weak-item">
+        <div style="flex:1">
+          <div style="font-size:14px">百分数应用题</div>
+          <div class="small muted">48% · 已错 5 题</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-practice.html">去练</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a href="student-home.html"><span class="ico"></span>今日</a>
+      <a href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a class="active" href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

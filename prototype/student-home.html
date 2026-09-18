@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日任务 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .hero {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .greet { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .greet-name { font-size: 16px; font-weight: 500; }
+  .greet-class { font-size: 13px; color: var(--text-3); margin-top: 2px; }
+  .lesson-tag { font-size: 12px; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 6px; }
+  .lesson-title { font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+  .lesson-desc { font-size: 13px; color: var(--text-3); margin-bottom: 16px; }
+  .progress-row { display: flex; align-items: center; gap: 12px; }
+  .progress-row .progress { flex: 1; }
+  .progress-num { font-size: 13px; color: var(--text-2); flex-shrink: 0; }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .mini-stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; text-align: center; }
+  .mini-stat .v { font-size: 20px; font-weight: 500; }
+  .mini-stat .l { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+  .task-item { display: flex; align-items: center; gap: 12px; padding: 15px 0; border-bottom: 1px solid var(--border); }
+  .task-item:last-child { border-bottom: none; }
+  .task-ico { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .task-ico.done { background: var(--brand-soft); color: var(--success); }
+  .task-ico.doing { background: var(--blue-soft); color: var(--blue); }
+  .task-ico.todo { background: var(--bg); color: var(--text-3); }
+  .task-main { flex: 1; min-width: 0; }
+  .task-name { font-size: 14px; }
+  .task-meta { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <div class="topbar-title">今日任务</div>
+    <a class="topbar-back" href="index.html">切换角色</a>
+  </div>
+
+  <div class="content">
+    <div class="hero">
+      <div class="greet">
+        <div>
+          <div class="greet-name">李小明</div>
+          <div class="greet-class">六(3)班 · 数学</div>
+        </div>
+        <div class="lesson-tag">第 20 分钟</div>
+      </div>
+      <div class="lesson-title">第六讲 · 圆的面积</div>
+      <div class="lesson-desc">掌握圆的面积公式，能解决组合图形面积问题</div>
+      <div class="progress-row">
+        <div class="progress"><div class="progress-bar" style="width:45%"></div></div>
+        <div class="progress-num">45%</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="mini-stat"><div class="v" style="color:var(--warning)">12</div><div class="l">连学天数</div></div>
+      <div class="mini-stat"><div class="v" style="color:var(--success)">78<span style="font-size:13px">%</span></div><div class="l">本周掌握度</div></div>
+      <div class="mini-stat"><div class="v" style="color:var(--danger)">5</div><div class="l">待复习错题</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">本节课任务 <span class="sub">4 项</span></div>
+
+      <div class="task-item">
+        <div class="task-ico done">✓</div>
+        <div class="task-main">
+          <div class="task-name">错题热身</div>
+          <div class="task-meta">3 道 · 已全部答对</div>
+        </div>
+        <span class="tag tag-green">已完成</span>
+      </div>
+
+      <div class="task-item">
+        <div class="task-ico doing">学</div>
+        <div class="task-main">
+          <div class="task-name">圆的面积公式</div>
+          <div class="task-meta">图文微课 · 约 5 分钟</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-learn.html">继续</a>
+      </div>
+
+      <div class="task-item">
+        <div class="task-ico todo">练</div>
+        <div class="task-main">
+          <div class="task-name">智能练习</div>
+          <div class="task-meta">系统按你的水平出题 · 8 道</div>
+        </div>
+        <a class="btn btn-sm" href="student-practice.html">开始</a>
+      </div>
+
+      <div class="task-item">
+        <div class="task-ico todo">测</div>
+        <div class="task-main">
+          <div class="task-name">当堂小测</div>
+          <div class="task-meta">学完练习后解锁</div>
+        </div>
+        <span class="tag tag-gray">未解锁</span>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:#F2C9C9;background:#FFFCFC">
+      <div class="card-title">待完成的考试 <span class="sub" style="color:var(--danger)">今晚 22:00 截止</span></div>
+      <div class="task-item" style="border-bottom:none">
+        <div class="task-ico" style="background:#FBEAEA;color:var(--danger)">考</div>
+        <div class="task-main">
+          <div class="task-name">第六单元模拟考</div>
+          <div class="task-meta">20 题 · 45 分钟 · 满分 100</div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="student-exam.html">去考试</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">今日推荐 <span class="sub">AI 根据你的薄弱点生成</span></div>
+      <div class="list-item">
+        <div class="list-main">
+          <div class="list-title">圆柱的表面积</div>
+          <div class="list-desc">掌握度 42% · 建议今天复习</div>
+        </div>
+        <div class="list-right"><a class="btn btn-sm" href="student-practice.html">去练</a></div>
+      </div>
+      <div class="list-item">
+        <div class="list-main">
+          <div class="list-title">分数除法应用题</div>
+          <div class="list-desc">掌握度 55% · 3 道错题待重做</div>
+        </div>
+        <div class="list-right"><a class="btn btn-sm" href="student-wrongbook.html">去重做</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a class="active" href="student-home.html"><span class="ico"></span>今日</a>
+      <a href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

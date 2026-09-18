@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 26 页 · 续费预警名单（纯预警对象：高/中风险）
+     KPI 趋势语义：好=绿(.stat-up) / 差=红(.stat-down) -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>续费预警 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式 ---- */
+  .table-admin .avatar{width:24px;height:24px;font-size:12px}
+  .table-admin .spark{width:60px;height:22px;flex-shrink:0}
+  .table-admin td.trend{text-align:center}
+  .m-trend{display:flex;align-items:center;gap:6px;justify-content:center}
+  .n-cell{text-align:right;font-variant-numeric:tabular-nums}
+  .legend-line{font-size:12px;color:var(--text-3);line-height:1.9;padding:0 0 10px}
+  .legend-line b{color:var(--text-2);font-weight:500}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a href="admin-dashboard.html">数据总览</a>
+      <a href="admin-users.html">用户管理</a>
+      <a href="admin-classes.html">班级排课</a>
+      <a href="admin-questionbank.html">题库管理</a>
+      <a href="admin-teaching.html">教学质量</a>
+      <a class="active" href="admin-renewal.html">续费预警</a>
+      <a href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="mb-12" style="margin-bottom:18px">
+      <div class="page-title">续费预警名单</div>
+      <div class="page-sub">哪些学生要流失、该谁去挽留 · 数据截至 2026-09-17 · 每日 08:00 更新风险分</div>
+    </div>
+
+    <!-- 风险分层卡 ×3 -->
+    <div class="stat-grid cols-3">
+      <div class="stat-card">
+        <div class="stat-label">高风险</div>
+        <div class="stat-value" style="color:var(--risk-high)">23<span class="unit">人</span></div>
+        <div class="hint mt-8">风险分 ≥70：课时将尽、长期缺课或掌握度连续下滑。</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">中风险</div>
+        <div class="stat-value" style="color:var(--risk-mid)">47<span class="unit">人</span></div>
+        <div class="hint mt-8">风险分 40–69：出勤或互动出现波动，需持续观察。</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">低风险</div>
+        <div class="stat-value" style="color:var(--risk-low)">316<span class="unit">人</span></div>
+        <div class="hint mt-8">风险分 &lt;40：学习状态稳定，正常跟课即可。</div>
+      </div>
+    </div>
+
+    <!-- AI 归因区 -->
+    <div class="ai-box" style="margin-top:0;margin-bottom:16px">
+      <div class="ai-box-head"><span class="ai-badge">AI</span>高风险归因与挽留建议</div>
+      <div class="ai-text">
+        <div style="margin-bottom:12px">
+          23 名高风险学员中，<b>12 人因剩余课时低于 5 次</b>，<b>7 人近两周缺课 2 次以上</b>，<b>4 人掌握度连续两周下滑</b>。
+        </div>
+        <div style="margin-bottom:12px">
+          建议优先跟进前 12 人 —— 他们的课时即将耗尽，是本周最佳的续费窗口。
+        </div>
+        <div>
+          推荐话术：<i style="color:var(--text-2)">"子涵最近圆的面积这块还偏弱，正确率在 58% 左右。但我们看了他的错题记录，集中在公式代入这一步，属于能快速补上的类型——剩下 4 次课正好排一个针对性小专题。您看要不要先把课时续上？"</i>
+        </div>
+      </div>
+    </div>
+
+    <!-- 预警名单表格 -->
+    <div class="card-flat">
+      <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:15px;font-weight:500">预警名单 <span class="sub" style="color:var(--text-3);font-weight:400;font-size:13px">按风险分排序 · 10 人</span></div>
+        <div class="flex gap-8">
+          <button class="btn btn-sm" onclick="alert('已按风险分从高到低排序')">按风险分排序</button>
+          <button class="btn btn-sm btn-blue" onclick="alert('已向 10 位家长推送挽留提醒（模拟）')">批量推送提醒</button>
+        </div>
+      </div>
+      <div style="padding:14px 20px 0">
+        <div class="legend-line">
+          <b>流失风险分口径：</b>剩余课时 40% + 近两周出勤 30% + 掌握度趋势 20% + 互动频次 10%（0–100 分，≥70 为高风险）。趋势线：蓝 = 掌握度上升，红 = 下滑。<br>
+          当前高风险 23 人、中风险 47 人，此处显示风险分最高的 4 位高风险学员与 6 位中风险学员。红色标注 = 剩余课时 ≤ 5 次，即课时将尽。
+        </div>
+        <table class="table-admin">
+          <thead>
+            <tr>
+              <th style="width:108px">学生</th>
+              <th style="width:72px">班级</th>
+              <th style="width:100px">剩余课时(次)</th>
+              <th style="width:128px">掌握度</th>
+              <th style="width:84px">风险档</th>
+              <th style="width:72px">风险分</th>
+              <th style="width:116px">风险原因</th>
+              <th style="width:80px">最近活跃</th>
+              <th style="width:76px">跟进人</th>
+              <th style="width:108px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><div class="stu"><div class="avatar">刘</div>刘子涵</div></td><td>六(3)班</td><td><span class="tag tag-red">4</span></td><td class="trend"><div class="m-trend"><span class="num">58%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,17 10,16 20,14 30,13 40,10 50,8 60,5"/></svg></div></td><td><span class="risk-badge high">高风险</span></td><td class="n-cell">86</td><td><span class="tag tag-red">课时将尽</span></td><td class="muted small">今天</td><td class="small">王老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">陈</div>陈欣怡</div></td><td>六(7)班</td><td><span class="tag tag-red">3</span></td><td class="trend"><div class="m-trend"><span class="num">66%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,16 10,15 20,13 30,12 40,10 50,8 60,6"/></svg></div></td><td><span class="risk-badge high">高风险</span></td><td class="n-cell">81</td><td><span class="tag tag-red">课时将尽</span></td><td class="muted small">今天</td><td class="small">周老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">张</div>张雨桐</div></td><td>六(4)班</td><td>7</td><td class="trend"><div class="m-trend"><span class="num">63%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,5 10,7 20,7 30,10 40,12 50,15 60,18"/></svg></div></td><td><span class="risk-badge high">高风险</span></td><td class="n-cell">79</td><td><span class="tag tag-amber">掌握度下滑</span></td><td class="muted small">昨天</td><td class="small">张老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">赵</div>赵梓萱</div></td><td>六(7)班</td><td>6</td><td class="trend"><div class="m-trend"><span class="num">65%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,6 10,8 20,8 30,11 40,13 50,15 60,18"/></svg></div></td><td><span class="risk-badge high">高风险</span></td><td class="n-cell">77</td><td><span class="tag tag-amber">长期缺课</span></td><td class="muted small">2 天前</td><td class="small">周老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">许</div>许梦琪</div></td><td>六(8)班</td><td>8</td><td class="trend"><div class="m-trend"><span class="num">70%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,5 10,6 20,8 30,10 40,13 50,15 60,17"/></svg></div></td><td><span class="risk-badge mid">中风险</span></td><td class="n-cell">61</td><td><span class="tag tag-amber">掌握度下滑</span></td><td class="muted small">昨天</td><td class="small">吴老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">王</div>王思远</div></td><td>六(4)班</td><td>12</td><td class="trend"><div class="m-trend"><span class="num">61%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,5 10,7 20,9 30,10 40,13 50,15 60,17"/></svg></div></td><td><span class="risk-badge mid">中风险</span></td><td class="n-cell">58</td><td><span class="tag tag-amber">长期缺课</span></td><td class="muted small">3 天前</td><td class="small">张老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">周</div>周佳琪</div></td><td>六(6)班</td><td>9</td><td class="trend"><div class="m-trend"><span class="num">67%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,15 10,14 20,13 30,12 40,11 50,9 60,8"/></svg></div></td><td><span class="risk-badge mid">中风险</span></td><td class="n-cell">55</td><td><span class="tag tag-amber">互动偏少</span></td><td class="muted small">昨天</td><td class="small">孙老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">郑</div>郑浩然</div></td><td>六(6)班</td><td>11</td><td class="trend"><div class="m-trend"><span class="num">68%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,16 10,15 20,13 30,13 40,11 50,10 60,8"/></svg></div></td><td><span class="risk-badge mid">中风险</span></td><td class="n-cell">52</td><td><span class="tag tag-amber">互动偏少</span></td><td class="muted small">2 天前</td><td class="small">孙老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">钱</div>钱思远</div></td><td>六(5)班</td><td>13</td><td class="trend"><div class="m-trend"><span class="num">69%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,6 10,8 20,9 30,11 40,12 50,15 60,16"/></svg></div></td><td><span class="risk-badge mid">中风险</span></td><td class="n-cell">48</td><td><span class="tag tag-amber">近两周缺课 2 次</span></td><td class="muted small">4 天前</td><td class="small">赵老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+            <tr><td><div class="stu"><div class="avatar">蒋</div>蒋一鸣</div></td><td>六(9)班</td><td>10</td><td class="trend"><div class="m-trend"><span class="num">71%</span><svg class="spark" viewBox="0 0 60 22" preserveAspectRatio="none"><polyline fill="none" stroke="var(--viz-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0,16 10,16 20,14 30,13 40,12 50,10 60,9"/></svg></div></td><td><span class="risk-badge mid">中风险</span></td><td class="n-cell">44</td><td><span class="tag tag-amber">互动偏少</span></td><td class="muted small">今天</td><td class="small">郑老师</td><td><button class="btn btn-sm" onclick="markFollowed(this)">标记已跟进</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="padding:14px 20px;text-align:center;color:var(--text-3);font-size:13px">显示 10 行 · 高风险 23 人、中风险 47 人共 70 人待跟进</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function markFollowed(btn){
+    var span = document.createElement('span');
+    span.className = 'tag tag-green';
+    span.textContent = '已跟进';
+    btn.replaceWith(span);
+  }
+</script>
+</body>
+</html>

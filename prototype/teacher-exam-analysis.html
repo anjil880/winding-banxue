@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考试成绩分析 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; align-items: start; }
+  .dist-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 170px; padding-top: 10px; }
+  .dist-col { text-align: center; flex: 1; }
+  .dist-col i { display: block; width: 48px; margin: 0 auto 8px; border-radius: 6px 6px 0 0; }
+  .dist-l { font-size: 12px; color: var(--text-3); }
+  .dist-v { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .kp-perf { margin-bottom: 16px; }
+  .kp-perf-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; margin-bottom: 6px; }
+  .kp-perf-top .rate { font-size: 15px; font-weight: 500; }
+  .rank-table td { padding: 10px 12px; }
+  .improve-badge { font-size: 12px; padding: 1px 7px; border-radius: 5px; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a href="teacher-dashboard.html">课堂看板</a>
+      <a href="teacher-assign.html">布置任务</a>
+      <a href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html" class="active">考试</a>
+      <a href="teacher-student.html">学生档案</a>
+      <a href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="card">
+      <div class="row-between">
+        <div>
+          <div style="font-size:18px;font-weight:500">第六单元模拟考 · 成绩分析</div>
+          <div class="small muted" style="margin-top:3px">六(3)班 · 42 人参考 · 满分 100 · 平均时长 41 分钟</div>
+        </div>
+        <div class="flex gap-8">
+          <a class="btn" href="teacher-exam-create.html">再出一套</a>
+          <button class="btn btn-blue" onclick="alert('成绩分析已导出为 PDF')">导出报告</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">班级平均分</div>
+        <div class="stat-value">68.4</div>
+        <div class="stat-sub stat-down">上次 71.2 · -2.8</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">最高 / 最低</div>
+        <div class="stat-value">96<span class="unit"> / 38</span></div>
+        <div class="stat-sub">分差 58 分</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">及格率</div>
+        <div class="stat-value">71<span class="unit">%</span></div>
+        <div class="stat-sub">30 / 42 人 ≥60</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">优秀率</div>
+        <div class="stat-value">19<span class="unit">%</span></div>
+        <div class="stat-sub">8 / 42 人 ≥85</div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <div class="card-title">分数段分布</div>
+          <div class="dist-chart">
+            <div class="dist-col">
+              <div class="dist-v">3</div>
+              <i style="height:26px;background:var(--m-low)"></i>
+              <div class="dist-l">0-59</div>
+            </div>
+            <div class="dist-col">
+              <div class="dist-v">9</div>
+              <i style="height:76px;background:#E8A87C"></i>
+              <div class="dist-l">60-69</div>
+            </div>
+            <div class="dist-col">
+              <div class="dist-v">14</div>
+              <i style="height:118px;background:var(--m-mid)"></i>
+              <div class="dist-l">70-79</div>
+            </div>
+            <div class="dist-col">
+              <div class="dist-v">8</div>
+              <i style="height:68px;background:#5DCAA5"></i>
+              <div class="dist-l">80-89</div>
+            </div>
+            <div class="dist-col">
+              <div class="dist-v">8</div>
+              <i style="height:68px;background:var(--m-high)"></i>
+              <div class="dist-l">90-100</div>
+            </div>
+          </div>
+          <div class="small muted" style="margin-top:12px">
+            主要集中在 70-79 分段（14 人，占 33%）。呈轻微双峰，说明班级已经开始分化。
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">知识点得分率 <span class="sub">与上次考试对比</span></div>
+
+          <div class="kp-perf">
+            <div class="kp-perf-top">
+              <span>圆的周长</span>
+              <span><span class="rate" style="color:var(--success)">94%</span> <span class="tag tag-green" style="margin-left:6px">+6%</span></span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:94%"></div></div>
+          </div>
+
+          <div class="kp-perf">
+            <div class="kp-perf-top">
+              <span>圆的面积</span>
+              <span><span class="rate" style="color:var(--success)">81%</span> <span class="tag tag-green" style="margin-left:6px">+3%</span></span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:81%"></div></div>
+          </div>
+
+          <div class="kp-perf">
+            <div class="kp-perf-top">
+              <span>圆柱与圆锥</span>
+              <span><span class="rate" style="color:var(--warning)">56%</span> <span class="tag tag-red" style="margin-left:6px">-8%</span></span>
+            </div>
+            <div class="progress"><div class="progress-bar warn" style="width:56%"></div></div>
+          </div>
+
+          <div class="kp-perf" style="margin-bottom:0">
+            <div class="kp-perf-top">
+              <span>组合图形面积</span>
+              <span><span class="rate" style="color:var(--danger)">41%</span> <span class="tag tag-red" style="margin-left:6px">-5%</span></span>
+            </div>
+            <div class="progress"><div class="progress-bar low" style="width:41%"></div></div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="small muted">
+            组合图形面积连续两次考试都低于 45%，是本班最需要补的短板。圆柱与圆锥本次退步明显。
+          </div>
+        </div>
+
+        <div class="card-flat">
+          <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+            <div style="font-size:15px;font-weight:500">成绩排名</div>
+            <div class="segment">
+              <button class="active">按分数</button>
+              <button>按进步</button>
+            </div>
+          </div>
+          <table class="table rank-table">
+            <thead>
+              <tr><th style="width:60px">排名</th><th>姓名</th><th style="width:80px">分数</th><th style="width:90px">较上次</th><th style="width:110px">薄弱知识点</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td><a class="link-blue" href="teacher-student.html">杨浩然</a></td><td>96</td><td><span class="improve-badge" style="background:var(--brand-soft);color:var(--success)">+8</span></td><td class="muted small">—</td></tr>
+              <tr><td>2</td><td><a class="link-blue" href="teacher-student.html">胡嘉懿</a></td><td>93</td><td><span class="improve-badge" style="background:var(--brand-soft);color:var(--success)">+5</span></td><td class="muted small">—</td></tr>
+              <tr><td>3</td><td><a class="link-blue" href="teacher-student.html">马心怡</a></td><td>91</td><td><span class="improve-badge" style="background:#FBEAEA;color:var(--danger)">-2</span></td><td class="muted small">组合图形</td></tr>
+              <tr><td>4</td><td><a class="link-blue" href="teacher-student.html">黄奕辰</a></td><td>88</td><td><span class="improve-badge" style="background:var(--brand-soft);color:var(--success)">+11</span></td><td class="muted small">圆柱</td></tr>
+              <tr><td>5</td><td><a class="link-blue" href="teacher-student.html">徐诗涵</a></td><td>86</td><td><span class="improve-badge" style="background:var(--brand-soft);color:var(--success)">+3</span></td><td class="muted small">圆柱</td></tr>
+              <tr><td>6</td><td><a class="link-blue" href="teacher-student.html">吴俊杰</a></td><td>85</td><td><span class="improve-badge" style="background:#FBEAEA;color:var(--danger)">-4</span></td><td class="muted small">组合图形</td></tr>
+              <tr><td>7</td><td><a class="link-blue" href="teacher-student.html">李小明</a></td><td>72</td><td><span class="improve-badge" style="background:var(--brand-soft);color:var(--success)">+4</span></td><td class="muted small">组合图形、圆柱</td></tr>
+              <tr><td>8</td><td><a class="link-blue" href="teacher-student.html">朱一诺</a></td><td>68</td><td><span class="improve-badge" style="background:#FBEAEA;color:var(--danger)">-6</span></td><td class="muted small">组合图形</td></tr>
+              <tr style="background:#FFFCFC"><td>40</td><td><a class="link-blue" href="teacher-student.html">赵梓萱</a></td><td>45</td><td><span class="improve-badge" style="background:#FBEAEA;color:var(--danger)">-9</span></td><td class="muted small">多个知识点</td></tr>
+              <tr style="background:#FFFCFC"><td>41</td><td><a class="link-blue" href="teacher-student.html">周佳琪</a></td><td>42</td><td><span class="improve-badge" style="background:#FBEAEA;color:var(--danger)">-3</span></td><td class="muted small">多个知识点</td></tr>
+              <tr style="background:#FFFCFC"><td>42</td><td><a class="link-blue" href="teacher-student.html">刘子涵</a></td><td>38</td><td><span class="improve-badge" style="background:#FBEAEA;color:var(--danger)">-12</span></td><td class="muted small">多个知识点</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:14px 20px;text-align:center;color:var(--text-3);font-size:13px">显示前 8 名与后 3 名 · 共 42 人</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-title">AI 教学建议</div>
+          <div class="ai-box" style="margin-top:0;border:none;background:#FAFBFC;padding:0">
+            <div class="ai-text">
+              <div style="margin-bottom:12px">
+                <b>1. 组合图形必须安排专项课</b><br>
+                <span class="muted" style="font-size:13px">连续两次低于 45%，全班性短板。建议下节课用 20 分钟讲「整体减空白」思路。</span>
+              </div>
+              <div style="margin-bottom:12px">
+                <b>2. 圆柱与圆锥退步 8%</b><br>
+                <span class="muted" style="font-size:13px">退步集中在表面积计算，多数学生漏算底面。建议强调「先判断有没有盖」。</span>
+              </div>
+              <div style="margin-bottom:12px">
+                <b>3. 关注 3 名退步学生</b><br>
+                <span class="muted" style="font-size:13px">刘子涵 -12、赵梓萱 -9、朱一诺 -6。三人共同点是近两周作业完成率低于 60%。</span>
+              </div>
+              <div>
+                <b>4. 班级轻微分化</b><br>
+                <span class="muted" style="font-size:13px">70-79 分段堆积 14 人。建议对这 14 人做一次 5 题小诊断，判断是知识漏洞还是粗心。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">值得表扬</div>
+          <div class="list-item">
+            <div class="list-main">
+              <div class="list-title">黄奕辰 +11 分</div>
+              <div class="list-desc">本周自学 5.2 小时，进步最大</div>
+            </div>
+            <span class="tag tag-green">进步王</span>
+          </div>
+          <div class="list-item">
+            <div class="list-main">
+              <div class="list-title">杨浩然 96 分</div>
+              <div class="list-desc">圆的周长、面积满分</div>
+            </div>
+            <span class="tag tag-blue">最高分</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">快捷操作</div>
+          <button class="btn btn-block mb-12" onclick="alert('已为 3 名退步学生生成个性补练')">给退步学生推练习</button>
+          <button class="btn btn-block mb-12" onclick="alert('成绩单已发送给 42 位家长')">发送家长成绩单</button>
+          <button class="btn btn-block" onclick="alert('已按本次成绩重新分层：A层 8 人 / B层 15 人 / C层 13 人 / D层 6 人')">按成绩重新分层</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

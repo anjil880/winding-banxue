@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>视频课 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .player {
+    background: #1F2328; border-radius: var(--radius);
+    aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center;
+    position: relative; margin-bottom: 16px; overflow: hidden;
+  }
+  .player-msg { color: #9AA4AF; font-size: 13px; text-align: center; line-height: 2; }
+  .player-big-play {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: rgba(255,255,255,.16);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .player-big-play::after {
+    content: ''; border-left: 16px solid #fff;
+    border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+    margin-left: 4px;
+  }
+  .ctrl-bar {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 12px 16px; background: rgba(0,0,0,.45);
+  }
+  .ctrl-line { height: 4px; background: rgba(255,255,255,.25); border-radius: 99px; overflow: hidden; }
+  .ctrl-line i { display: block; height: 100%; width: 37%; background: #fff; border-radius: 99px; }
+  .ctrl-info { display: flex; justify-content: space-between; font-size: 11px; color: rgba(255,255,255,.8); margin-top: 6px; }
+  .video-title-lg { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+  .video-meta-lg { font-size: 13px; color: var(--text-3); margin-bottom: 16px; }
+  .chapter { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 14px; }
+  .chapter:last-child { border-bottom: none; }
+  .chapter:hover { color: var(--brand); }
+  .chapter.playing { color: var(--brand); font-weight: 500; }
+  .chapter-time { margin-left: auto; font-size: 12px; color: var(--text-3); flex-shrink: 0; }
+  .note-tabs { display: flex; gap: 4px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .note-tabs button { padding: 9px 14px; font-size: 14px; color: var(--text-2); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .note-tabs button.active { color: var(--brand); border-bottom-color: var(--brand); }
+  .note-list li { font-size: 14px; line-height: 1.9; margin-left: 18px; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="student-shell">
+  <div class="topbar">
+    <a class="topbar-back" href="student-selfstudy.html">‹ 返回</a>
+    <div class="topbar-title">视频课</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div class="player">
+      <div class="player-msg">
+        <div class="player-big-play"></div>
+        视频内容占位<br>
+        <span style="font-size:12px">正式版将接入机构自有微课视频</span>
+      </div>
+      <div class="ctrl-bar">
+        <div class="ctrl-line"><i></i></div>
+        <div class="ctrl-info"><span>03:20</span><span>08:24</span></div>
+      </div>
+    </div>
+
+    <div class="video-title-lg">圆柱的表面积 · 公式推导</div>
+    <div class="video-meta-lg">六年级数学 · 图形与几何 · 播放 1,284 次</div>
+
+    <div class="card">
+      <div class="card-title">这节课讲什么</div>
+      <div class="small" style="line-height:1.9">
+        圆柱的侧面展开是一个长方形，底面是两个圆。这节课带你把这层「展开」想清楚，之后表面积公式就不用死记了。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="note-tabs">
+        <button class="active" onclick="tab(this,'chapter')">目录</button>
+        <button onclick="tab(this,'note')">我的笔记</button>
+        <button onclick="tab(this,'related')">配套练习</button>
+      </div>
+
+      <div id="pane-chapter">
+        <div class="chapter playing"><span>1.</span><span>侧面展开图的秘密</span><span class="chapter-time">02:10</span></div>
+        <div class="chapter"><span>2.</span><span>底面周长 = 长方形的长</span><span class="chapter-time">03:05</span></div>
+        <div class="chapter"><span>3.</span><span>表面积 = 侧面积 + 2 个底面积</span><span class="chapter-time">02:29</span></div>
+        <div class="chapter"><span>4.</span><span>例题：给圆柱形水桶贴标签</span><span class="chapter-time">02:40</span></div>
+      </div>
+
+      <div id="pane-note" style="display:none">
+        <textarea style="width:100%;min-height:110px;padding:12px;border:1px solid var(--border-strong);border-radius:8px;font-family:inherit;font-size:14px;resize:vertical" placeholder="边看边记，会自动保存">侧面积 = 底面周长 × 高
+最容易漏的是 2 个底面！记一下：水桶只有一个底面。</textarea>
+        <button class="btn btn-block mt-8" onclick="alert('笔记已保存，可在「我的笔记」里随时查看')">保存笔记</button>
+      </div>
+
+      <div id="pane-related" style="display:none">
+        <div class="list-item">
+          <div class="list-main">
+            <div class="list-title">圆柱表面积 · 基础 5 题</div>
+            <div class="list-desc">刚看完视频，先做基础题巩固</div>
+          </div>
+          <a class="btn btn-sm btn-primary" href="student-drill.html">去练</a>
+        </div>
+        <div class="list-item">
+          <div class="list-main">
+            <div class="list-title">圆柱表面积 · 进阶 5 题</div>
+            <div class="list-desc">含无盖水桶、通风管等变式</div>
+          </div>
+          <a class="btn btn-sm" href="student-drill.html">去练</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">看完还有疑问？</div>
+      <div style="display:flex;gap:10px">
+        <input type="text" id="q" placeholder="比如：通风管为什么只算侧面积？" style="flex:1;padding:9px 12px;border:1px solid var(--border-strong);border-radius:8px;font-size:14px;font-family:inherit">
+        <button class="btn btn-primary" onclick="ask()">问 AI</button>
+      </div>
+      <div id="ans" style="display:none;margin-top:14px">
+        <div class="ai-box">
+          <div class="ai-box-head"><span class="ai-badge">AI</span>小助手</div>
+          <div class="ai-text">通风管是两头都通的，<b>没有底面</b>，所以只有侧面。算的时候直接用 底面周长 × 长 就行，不要再加两个底面积。<br><br>判断口诀：<b>有盖没盖看用途</b>——水桶 1 个底、通风管 0 个底、罐头 2 个底。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabbar-inner">
+      <a href="student-home.html"><span class="ico"></span>今日</a>
+      <a class="active" href="student-selfstudy.html"><span class="ico"></span>自学</a>
+      <a href="student-wrongbook.html"><span class="ico"></span>错题本</a>
+      <a href="student-mastery.html"><span class="ico"></span>掌握度</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function tab(btn, name) {
+  var btns = document.querySelectorAll('.note-tabs button');
+  for (var i = 0; i < btns.length; i++) { btns[i].className = ''; }
+  btn.className = 'active';
+  var names = ['chapter', 'note', 'related'];
+  for (var j = 0; j < names.length; j++) {
+    document.getElementById('pane-' + names[j]).style.display = (names[j] === name) ? 'block' : 'none';
+  }
+}
+function ask() {
+  document.getElementById('ans').style.display = 'block';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 24 页 · 题库管理 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>题库管理 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式 ---- */
+  .field{padding:7px 11px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+    font-size:13px;background:var(--card);color:var(--text);font-family:inherit}
+  .field:focus{outline:none;border-color:var(--blue)}
+  select.field{cursor:pointer}
+  .search{min-width:220px}
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    padding:14px 20px;border-bottom:1px solid var(--border)}
+  .filter-bar .grow{flex:1}
+  .gap-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .gap-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:var(--radius-sm);font-size:13px}
+  .gap-chip.red{color:var(--risk-high);background:var(--risk-high-bg);border:1px solid var(--risk-high-bd)}
+  .gap-chip.amber{color:var(--risk-mid);background:var(--risk-mid-bg);border:1px solid var(--risk-mid-bd)}
+  .table-admin td.stem{color:var(--text);max-width:360px}
+  .ai-actions{display:flex;gap:10px;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a href="admin-dashboard.html">数据总览</a>
+      <a href="admin-users.html">用户管理</a>
+      <a href="admin-classes.html">班级排课</a>
+      <a class="active" href="admin-questionbank.html">题库管理</a>
+      <a href="admin-teaching.html">教学质量</a>
+      <a href="admin-renewal.html">续费预警</a>
+      <a href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="mb-12" style="margin-bottom:18px">
+      <div class="page-title">题库管理</div>
+      <div class="page-sub">题够不够用、标得全不全 · 数据截至 2026-09-17 · 每日增量同步</div>
+    </div>
+
+    <!-- 指标卡 ×4 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">总题量</div>
+        <div class="stat-value">1,248<span class="unit">题</span></div>
+        <div class="stat-sub">覆盖六年级数学全册</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">已打标率</div>
+        <div class="stat-value">63<span class="unit">%</span></div>
+        <div class="stat-sub">786 / 1,248 题已打标</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">知识点覆盖</div>
+        <div class="stat-value">18<span class="unit"> / 24</span></div>
+        <div class="stat-sub">6 个知识点题量不足</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">本周新增</div>
+        <div class="stat-value">86<span class="unit">题</span></div>
+        <div class="stat-sub stat-up">较上周 +22 题</div>
+      </div>
+    </div>
+
+    <!-- AI 批量打标 -->
+    <div class="ai-box" style="margin-top:0;margin-bottom:16px">
+      <div class="ai-box-head"><span class="ai-badge">AI</span>批量智能打标</div>
+      <div class="ai-text">
+        AI 可自动识别题干中的知识点、难度、题型，并按校本课标统一命名。当前有 <b>462 道题未打标</b>，预计 3 分钟完成，打标后可立即用于组卷与学情分析。
+      </div>
+      <div class="ai-actions">
+        <button class="btn btn-primary" onclick="alert('AI 批量打标已启动：正在处理 462 道题，预计 3 分钟完成（模拟）')">开始 AI 批量打标</button>
+        <button class="btn" onclick="alert('打标规则：知识点匹配校本课标 24 个标签；难度按正确率分基础/进阶/挑战三档')">查看打标规则</button>
+      </div>
+    </div>
+
+    <!-- 缺口提示区 -->
+    <div class="card">
+      <div class="card-title">覆盖不足的知识点 <span class="sub">题量 &lt; 25 题 · 影响组卷覆盖度</span></div>
+      <div class="gap-row">
+        <span class="gap-chip red">组合图形面积 · 仅 12 题</span>
+        <span class="gap-chip red">百分数应用题 · 仅 18 题</span>
+        <span class="gap-chip amber">圆柱表面积 · 仅 21 题</span>
+        <span class="gap-chip amber">圆锥体积 · 仅 23 题</span>
+        <span class="gap-chip amber">比与比例 · 仅 24 题</span>
+        <span class="gap-chip amber">立体图形展开图 · 仅 24 题</span>
+      </div>
+      <div class="hint mt-8">建议优先补充「组合图形面积」「百分数应用题」两个知识点，二者同时是本月教学质量看板中得分率最低的考点。</div>
+    </div>
+
+    <!-- 题目表格 -->
+    <div class="card-flat" style="margin-top:16px">
+      <div class="filter-bar">
+        <input class="field search" type="text" placeholder="搜索题干关键词">
+        <select class="field"><option>全部知识点</option><option>圆的面积</option><option>圆的周长</option><option>组合图形面积</option><option>圆柱与圆锥</option><option>百分数应用题</option></select>
+        <select class="field"><option>全部难度</option><option>基础</option><option>进阶</option><option>挑战</option></select>
+        <select class="field"><option>全部题型</option><option>选择题</option><option>填空题</option><option>计算题</option><option>解答题</option></select>
+        <select class="field"><option>全部来源</option><option>校本题库</option><option>期中卷</option><option>单元测评</option><option>教辅同步</option></select>
+        <div class="grow"></div>
+        <button class="btn btn-sm" onclick="alert('题目列表已导出为 CSV（1,248 条记录）')">导出 CSV</button>
+      </div>
+      <table class="table-admin">
+        <thead>
+          <tr>
+            <th style="width:72px;white-space:nowrap">题号</th>
+            <th>题干摘要</th>
+            <th style="width:130px">知识点</th>
+            <th style="width:90px">难度</th>
+            <th style="width:90px">题型</th>
+            <th style="width:100px">来源</th>
+            <th style="width:100px">打标状态</th>
+            <th style="width:130px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">Q-0412</td><td class="stem">一个圆的直径是 14 厘米，求它的面积。</td><td>圆的面积</td><td><span class="tag tag-amber">进阶</span></td><td>计算题</td><td>校本题库</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0408</td><td class="stem">半径 3 厘米的圆，它的周长是多少？</td><td>圆的周长</td><td><span class="tag tag-gray">基础</span></td><td>选择题</td><td>校本题库</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0409</td><td class="stem">把一根长 12.56 分米的铁丝围成一个圆，半径是多少分米？</td><td>圆的周长</td><td><span class="tag tag-amber">进阶</span></td><td>计算题</td><td>期中卷</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0517</td><td class="stem">求下面组合图形（正方形内挖去一个圆）阴影部分的面积。</td><td>组合图形面积</td><td><span class="tag tag-red">挑战</span></td><td>解答题</td><td>校本题库</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0683</td><td class="stem">圆柱的底面半径是 2 厘米，高是 5 厘米，求它的侧面积。</td><td>圆柱表面积</td><td><span class="tag tag-amber">进阶</span></td><td>计算题</td><td>单元测评</td><td><span class="tag tag-gray">未打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0321</td><td class="stem">一个数的 25% 是 40，这个数是多少？</td><td>百分数应用题</td><td><span class="tag tag-gray">基础</span></td><td>选择题</td><td>校本题库</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0705</td><td class="stem">请写出圆锥体积公式的推导过程，并说明与圆柱的关系。</td><td>圆柱与圆锥</td><td><span class="tag tag-red">挑战</span></td><td>解答题</td><td>教辅同步</td><td><span class="tag tag-gray">未打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0415</td><td class="stem">直径是 8 米的圆形花坛，它的面积是多少平方米？</td><td>圆的面积</td><td><span class="tag tag-gray">基础</span></td><td>填空题</td><td>校本题库</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0330</td><td class="stem">原价 200 元的商品打八折后是多少元？</td><td>百分数应用题</td><td><span class="tag tag-gray">基础</span></td><td>计算题</td><td>生活情境</td><td><span class="tag tag-green">已打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          <tr><td class="num">Q-0524</td><td class="stem">两个半圆拼成的组合图形，求它的周长。</td><td>组合图形面积</td><td><span class="tag tag-red">挑战</span></td><td>解答题</td><td>校本题库</td><td><span class="tag tag-gray">未打标</span></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+        </tbody>
+      </table>
+      <div style="padding:14px 20px;text-align:center;color:var(--text-3);font-size:13px">显示 10 行 · 共 1,248 题</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能练习 · 学生端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .q-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .q-meta { font-size: 13px; color: var(--text-3); }
+  .q-tag { font-size: 12px; }
+  .bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 12px 20px; z-index: 30;
+  }
+  .bottom-inner { max-width: 780px; margin: 0 auto; display: flex; gap: 12px; align-items: center; }
+  .hint-box {
+    background: var(--blue-soft);
+    border: 1px solid #C9DFF4;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #14508c;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="student-shell" style="padding-bottom:88px">
+  <div class="topbar">
+    <a class="topbar-back" href="student-home.html">‹ 返回</a>
+    <div class="topbar-title">智能练习</div>
+    <div style="width:60px"></div>
+  </div>
+
+  <div class="content">
+    <div style="margin-bottom:16px">
+      <div class="q-head">
+        <span class="q-meta">第 1 题 / 共 8 题</span>
+        <span class="q-meta">已答对 0 题</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:12%"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="q-head">
+        <span class="tag tag-blue">知识点：圆的面积</span>
+        <span class="tag tag-gray">难度 ★★☆</span>
+      </div>
+      <div class="question-stem">
+        <span class="num">1.</span>一个圆形花坛的半径是 4 米，它的面积是多少平方米？
+      </div>
+
+      <div class="option" onclick="select(this,'A')">
+        <div class="option-key">A</div>
+        <div class="option-text">12.56 平方米</div>
+      </div>
+      <div class="option" onclick="select(this,'B')">
+        <div class="option-key">B</div>
+        <div class="option-text">25.12 平方米</div>
+      </div>
+      <div class="option" onclick="select(this,'C')">
+        <div class="option-key">C</div>
+        <div class="option-text">50.24 平方米</div>
+      </div>
+      <div class="option" onclick="select(this,'D')">
+        <div class="option-key">D</div>
+        <div class="option-text">100.48 平方米</div>
+      </div>
+
+      <div class="hint-box">
+        AI 提示：这道题的正确率只有 63%，是本题常错点。做完会告诉你错在哪。
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-inner">
+      <button class="btn btn-lg" style="flex:0 0 100px" onclick="alert('已加入待定，先做这道题吧')">不确定</button>
+      <button class="btn btn-primary btn-lg" style="flex:1" id="submitBtn" disabled onclick="submit()">提交答案</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var picked = null;
+function select(el, key) {
+  var opts = document.querySelectorAll('.option');
+  for (var i = 0; i < opts.length; i++) { opts[i].classList.remove('selected'); }
+  el.classList.add('selected');
+  picked = key;
+  document.getElementById('submitBtn').disabled = false;
+}
+function submit() {
+  if (!picked) return;
+  var ok = (picked === 'C') ? 1 : 0;
+  location.href = 'student-feedback.html?ans=' + picked + '&ok=' + ok + '&q=1';
+}
+</script>
+</body>
+</html>

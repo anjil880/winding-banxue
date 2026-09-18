@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!-- 设计系统：启航伴学 shared.css（管理端扩展 · 数据可视化令牌 viz-*/risk-*）
+     本页为管理端第 23 页 · 班级与排课管理
+     KPI 趋势语义：好=绿(.stat-up) / 差=红(.stat-down) -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>班级排课 · 管理后台</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- 本页局部样式 ---- */
+  .field{padding:7px 11px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+    font-size:13px;background:var(--card);color:var(--text);font-family:inherit;width:100%}
+  .field:focus{outline:none;border-color:var(--blue)}
+  label.lb{display:block;font-size:12px;color:var(--text-2);margin:0 0 6px}
+  .form-row{margin-bottom:14px}
+  .table-admin .progress{width:70px}
+  .m-cell{display:flex;align-items:center;white-space:nowrap}
+
+  /* 本周课表网格 */
+  .week-grid{display:grid;grid-template-columns:84px repeat(7,1fr);gap:8px}
+  .week-head{font-size:12px;color:var(--text-3);text-align:center;padding:4px 0}
+  .week-time{font-size:12px;color:var(--text-2);padding:8px 0;text-align:right}
+  .week-cell{min-height:56px;border:1px solid var(--border);border-radius:var(--radius-sm);
+    padding:6px;background:var(--card)}
+  .week-cell .t{font-size:11px;color:var(--text-3);margin-bottom:2px}
+  .week-cell .tag{margin-bottom:3px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex}
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>启航伴学 · 管理后台</div>
+    <div class="admin-nav">
+      <a href="admin-dashboard.html">数据总览</a>
+      <a href="admin-users.html">用户管理</a>
+      <a class="active" href="admin-classes.html">班级排课</a>
+      <a href="admin-questionbank.html">题库管理</a>
+      <a href="admin-teaching.html">教学质量</a>
+      <a href="admin-renewal.html">续费预警</a>
+      <a href="admin-weekly.html">家长周报</a>
+    </div>
+    <div class="admin-user">
+      <span>李校长</span>
+      <div class="avatar">李</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <!-- 标题区 -->
+    <div class="mb-12" style="margin-bottom:18px">
+      <div class="page-title">班级与排课管理</div>
+      <div class="page-sub">班怎么排、课怎么上、进度到哪 · 2026 秋季学期 · 每周日 22:00 同步课表</div>
+    </div>
+
+    <!-- 班级列表 + 排课表单 -->
+    <div class="grid-main">
+      <div class="card-flat">
+        <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:15px;font-weight:500">班级列表 <span class="sub" style="color:var(--text-3);font-weight:400;font-size:13px">10 个班</span></div>
+          <button class="btn btn-sm btn-blue" onclick="alert('新建班级表单为二期功能，当前可通过排课表单快速建课')">新建班级</button>
+        </div>
+        <table class="table-admin">
+          <thead>
+            <tr>
+              <th style="width:76px">班级</th>
+              <th style="width:80px">授课老师</th>
+              <th style="width:132px">容量 / 在读</th>
+              <th style="width:72px">掌握度</th>
+              <th style="width:104px">课次进度</th>
+              <th style="width:110px">下次上课</th>
+              <th style="width:88px">直播</th>
+              <th style="width:130px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>六(1)班</td><td>王老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:89%"></div></div><span class="num small">40/45</span></div></td><td><span class="m-cell"><i class="m-dot m-high"></i>76%</span></td><td class="num">第 9 次 / 共 16</td><td class="muted small">周一 18:30</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(2)班</td><td>李老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:93%"></div></div><span class="num small">42/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>74%</span></td><td class="num">第 8 次 / 共 16</td><td class="muted small">周一 20:00</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(3)班</td><td>王老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:93%"></div></div><span class="num small">42/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>74%</span></td><td class="num">第 9 次 / 共 16</td><td class="muted small">周二 18:30</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(4)班</td><td>张老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:84%"></div></div><span class="num small">38/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>61%</span></td><td class="num">第 7 次 / 共 16</td><td class="muted small">周二 20:00</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(5)班</td><td>赵老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:89%"></div></div><span class="num small">40/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>71%</span></td><td class="num">第 8 次 / 共 16</td><td class="muted small">周三 18:30</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(6)班</td><td>孙老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:80%"></div></div><span class="num small">36/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>66%</span></td><td class="num">第 7 次 / 共 16</td><td class="muted small">周三 20:00</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(7)班</td><td>周老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar blue" style="width:89%"></div></div><span class="num small">40/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>63%</span></td><td class="num">第 6 次 / 共 16</td><td class="muted small">周四 18:30</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(8)班</td><td>吴老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:84%"></div></div><span class="num small">38/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>69%</span></td><td class="num">第 7 次 / 共 16</td><td class="muted small">周四 20:00</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(9)班</td><td>郑老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:78%"></div></div><span class="num small">35/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>72%</span></td><td class="num">第 6 次 / 共 16</td><td class="muted small">周五 18:30</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+            <tr><td>六(10)班</td><td>冯老师</td><td><div class="flex gap-8" style="align-items:center"><div class="progress"><div class="progress-bar warn" style="width:78%"></div></div><span class="num small">35/45</span></div></td><td><span class="m-cell"><i class="m-dot m-mid"></i>70%</span></td><td class="num">第 5 次 / 共 16</td><td class="muted small">周五 20:00</td><td><button class="btn btn-sm" onclick="alert('腾讯会议链接将在开课前 10 分钟生成')">进直播</button></td><td><div class="ops"><button class="btn btn-sm">查看</button><button class="btn btn-sm">编辑</button></div></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 20px;color:var(--text-3);font-size:13px">共 10 个班 · 在读合计 386 人 · 平均满班率 86%</div>
+      </div>
+
+      <!-- 排课表单 -->
+      <div class="card">
+        <div class="card-title">快速排课</div>
+        <div class="form-row">
+          <label class="lb">选择班级</label>
+          <select class="field">
+            <option>六(1)班</option><option>六(2)班</option><option>六(3)班</option>
+            <option>六(4)班</option><option>六(5)班</option><option>六(6)班</option>
+            <option>六(7)班</option><option>六(8)班</option><option>六(9)班</option><option>六(10)班</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="lb">上课日期</label>
+          <input class="field" type="date" value="2026-09-21">
+        </div>
+        <div class="form-row">
+          <label class="lb">上课时间</label>
+          <select class="field"><option>18:30 - 20:00</option><option>20:00 - 21:30</option><option>09:00 - 10:30</option><option>14:00 - 15:30</option></select>
+        </div>
+        <div class="form-row">
+          <label class="lb">授课老师</label>
+          <select class="field">
+            <option>王老师</option><option>李老师</option><option>张老师</option><option>赵老师</option>
+            <option>孙老师</option><option>周老师</option><option>吴老师</option><option>郑老师</option>
+            <option>冯老师</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="alert('课表已生成：六(1)班 2026-09-21 18:30 王老师（模拟）')">生成课表</button>
+        <div class="hint mt-8">系统会同步检测该老师与班级的时间冲突，生成后自动向家长推送上课提醒。</div>
+      </div>
+    </div>
+
+    <!-- 本周课表 -->
+    <div class="card-flat" style="margin-top:16px">
+      <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:15px;font-weight:500">本周课表 <span class="sub" style="color:var(--text-3);font-weight:400;font-size:13px">2026-09-14 至 09-20</span></div>
+        <span class="tag tag-blue">共 32 节课</span>
+      </div>
+      <div style="padding:16px 20px">
+        <div class="week-grid">
+          <div class="week-head"></div>
+          <div class="week-head">周一</div>
+          <div class="week-head">周二</div>
+          <div class="week-head">周三</div>
+          <div class="week-head">周四</div>
+          <div class="week-head">周五</div>
+          <div class="week-head">周六</div>
+          <div class="week-head">周日</div>
+
+          <div class="week-time">上午 09:00</div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"><span class="tag tag-blue">六(5)班</span><span class="tag tag-blue">六(6)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(10)班</span></div>
+
+          <div class="week-time">下午 14:00</div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"><span class="tag tag-blue">六(9)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(7)班</span></div>
+
+          <div class="week-time">晚上 18:30</div>
+          <div class="week-cell"><span class="tag tag-blue">六(1)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(3)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(5)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(7)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(9)班</span></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+
+          <div class="week-time">晚上 20:00</div>
+          <div class="week-cell"><span class="tag tag-blue">六(2)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(4)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(6)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(8)班</span></div>
+          <div class="week-cell"><span class="tag tag-blue">六(10)班</span></div>
+          <div class="week-cell"></div>
+          <div class="week-cell"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

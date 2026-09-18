@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课堂实时看板 · 教师端</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .lesson-bar {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 20px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--danger); display: inline-block; margin-right: 6px; }
+  .student-table td { padding: 10px 12px; }
+  .stu-name { display: flex; align-items: center; gap: 8px; }
+  .bar-mini { width: 90px; height: 6px; background: #EDF0F3; border-radius: 99px; overflow: hidden; }
+  .bar-mini i { display: block; height: 100%; background: var(--blue); border-radius: 99px; }
+  .alert-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .alert-item:last-child { border-bottom: none; }
+  .alert-icon { width: 28px; height: 28px; border-radius: 8px; background: #FBEAEA; color: var(--danger); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-topbar">
+    <div class="admin-logo"><span class="dot"></span>伴学系统</div>
+    <div class="admin-nav">
+      <a class="active" href="teacher-dashboard.html">课堂看板</a>
+      <a href="teacher-assign.html">布置任务</a>
+      <a href="teacher-review.html">讲评助手</a>
+      <a href="teacher-exam-create.html">考试</a>
+      <a href="teacher-student.html">学生档案</a>
+      <a href="teacher-report.html">班级报告</a>
+    </div>
+    <div class="admin-user">
+      <span>王老师</span>
+      <div class="avatar">王</div>
+      <a href="index.html" style="color:var(--text-3);margin-left:8px">切换</a>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="lesson-bar">
+      <div>
+        <div style="font-size:16px;font-weight:500">第六讲 · 圆的面积</div>
+        <div style="font-size:13px;color:var(--text-3);margin-top:3px">六(3)班 · 第 3 次课</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:14px"><span class="live-dot"></span>上课中 · 第 20 分钟</div>
+        <div style="font-size:13px;color:var(--text-3);margin-top:3px">练习阶段 · 实时更新</div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">在线学生</div>
+        <div class="stat-value">42<span class="unit">/42</span></div>
+        <div class="stat-sub">全部已签到</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">平均进度</div>
+        <div class="stat-value">58<span class="unit">%</span></div>
+        <div class="stat-sub">8 题已完成 4.6 题</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">实时正确率</div>
+        <div class="stat-value" style="color:var(--warning)">71<span class="unit">%</span></div>
+        <div class="stat-sub">低于预期 78%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">需要关注</div>
+        <div class="stat-value" style="color:var(--danger)">5<span class="unit">人</span></div>
+        <div class="stat-sub">卡住 2 · 掉队 3</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start">
+      <div>
+        <div class="card">
+          <div class="card-title">需要立即关注 <span class="sub">5 人</span></div>
+          <div class="alert-item">
+            <div class="alert-icon">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px">刘子涵</div>
+              <div class="small muted">第 5 题停留 4 分钟未作答</div>
+            </div>
+            <button class="btn btn-sm">提醒</button>
+          </div>
+          <div class="alert-item">
+            <div class="alert-icon">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px">赵梓萱</div>
+              <div class="small muted">连续答错 3 题 · 圆的面积</div>
+            </div>
+            <button class="btn btn-sm">看错题</button>
+          </div>
+          <div class="alert-item">
+            <div class="alert-icon">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px">张雨桐</div>
+              <div class="small muted">进度 30%，落后全班 28%</div>
+            </div>
+            <button class="btn btn-sm">催促</button>
+          </div>
+          <div class="alert-item">
+            <div class="alert-icon">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px">陈欣怡</div>
+              <div class="small muted">切出页面 3 次</div>
+            </div>
+            <button class="btn btn-sm">提醒</button>
+          </div>
+          <div class="alert-item">
+            <div class="alert-icon">!</div>
+            <div style="flex:1">
+              <div style="font-size:14px">周佳琪</div>
+              <div class="small muted">正确率 25%，难度可能过高</div>
+            </div>
+            <button class="btn btn-sm">调难度</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">全班知识点热力</div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-low"></i>圆的面积公式应用</div></div>
+            <div class="list-right small muted">正确率 54%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-mid"></i>半径直径换算</div></div>
+            <div class="list-right small muted">正确率 68%</div>
+          </div>
+          <div class="list-item">
+            <div class="list-main"><div class="list-title" style="font-size:13px"><i class="m-dot m-high"></i>圆的周长计算</div></div>
+            <div class="list-right small muted">正确率 89%</div>
+          </div>
+          <div style="margin-top:14px">
+            <a class="btn btn-block btn-blue" href="teacher-review.html">去讲评高频错题</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-flat">
+        <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:15px;font-weight:500">学生实时进度 <span class="sub" style="color:var(--text-3);font-weight:400;font-size:13px">42 人</span></div>
+          <div class="segment">
+            <button class="active">全部</button>
+            <button>仅看需关注</button>
+          </div>
+        </div>
+        <table class="table student-table">
+          <thead>
+            <tr>
+              <th style="width:120px">学生</th>
+              <th>当前位置</th>
+              <th style="width:130px">进度</th>
+              <th style="width:80px">正确率</th>
+              <th style="width:90px">用时</th>
+              <th style="width:90px">状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">李小明</a></td><td class="muted small">第 7 题</td><td><div class="bar-mini"><i style="width:85%"></i></div></td><td>88%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">王思远</a></td><td class="muted small">第 4 题</td><td><div class="bar-mini"><i style="width:50%"></i></div></td><td>75%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">刘子涵</a></td><td class="muted small">第 5 题</td><td><div class="bar-mini"><i style="width:50%;background:var(--danger)"></i></div></td><td>50%</td><td class="muted small">9 分</td><td><span class="tag tag-red">卡住</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">张雨桐</a></td><td class="muted small">第 3 题</td><td><div class="bar-mini"><i style="width:30%;background:var(--warning)"></i></div></td><td>67%</td><td class="muted small">9 分</td><td><span class="tag tag-amber">掉队</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">陈欣怡</a></td><td class="muted small">第 4 题</td><td><div class="bar-mini"><i style="width:40%;background:var(--warning)"></i></div></td><td>50%</td><td class="muted small">9 分</td><td><span class="tag tag-amber">待观察</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">杨浩然</a></td><td class="muted small">第 8 题</td><td><div class="bar-mini"><i style="width:100%"></i></div></td><td>100%</td><td class="muted small">7 分</td><td><span class="tag tag-green">已完成</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">赵梓萱</a></td><td class="muted small">第 4 题</td><td><div class="bar-mini"><i style="width:45%;background:var(--danger)"></i></div></td><td>25%</td><td class="muted small">9 分</td><td><span class="tag tag-red">连错</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">黄奕辰</a></td><td class="muted small">第 6 题</td><td><div class="bar-mini"><i style="width:70%"></i></div></td><td>83%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">周佳琪</a></td><td class="muted small">第 4 题</td><td><div class="bar-mini"><i style="width:45%;background:var(--danger)"></i></div></td><td>25%</td><td class="muted small">9 分</td><td><span class="tag tag-red">连错</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">吴俊杰</a></td><td class="muted small">第 5 题</td><td><div class="bar-mini"><i style="width:55%"></i></div></td><td>80%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">徐诗涵</a></td><td class="muted small">第 6 题</td><td><div class="bar-mini"><i style="width:72%"></i></div></td><td>83%</td><td class="muted small">8 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">孙宇轩</a></td><td class="muted small">第 3 题</td><td><div class="bar-mini"><i style="width:32%;background:var(--warning)"></i></div></td><td>67%</td><td class="muted small">9 分</td><td><span class="tag tag-amber">掉队</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">马心怡</a></td><td class="muted small">第 7 题</td><td><div class="bar-mini"><i style="width:85%"></i></div></td><td>86%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">朱一诺</a></td><td class="muted small">第 5 题</td><td><div class="bar-mini"><i style="width:58%"></i></div></td><td>60%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">胡嘉懿</a></td><td class="muted small">第 8 题</td><td><div class="bar-mini"><i style="width:100%"></i></div></td><td>88%</td><td class="muted small">8 分</td><td><span class="tag tag-green">已完成</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">林清雅</a></td><td class="muted small">第 6 题</td><td><div class="bar-mini"><i style="width:70%"></i></div></td><td>83%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">郭泽楷</a></td><td class="muted small">第 4 题</td><td><div class="bar-mini"><i style="width:48%;background:var(--warning)"></i></div></td><td>50%</td><td class="muted small">9 分</td><td><span class="tag tag-amber">待观察</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">何雨薇</a></td><td class="muted small">第 7 题</td><td><div class="bar-mini"><i style="width:82%"></i></div></td><td>71%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">高子墨</a></td><td class="muted small">第 5 题</td><td><div class="bar-mini"><i style="width:60%"></i></div></td><td>80%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+            <tr><td><a class="link-blue stu-name" href="teacher-student.html">罗晨曦</a></td><td class="muted small">第 6 题</td><td><div class="bar-mini"><i style="width:68%"></i></div></td><td>67%</td><td class="muted small">9 分</td><td><span class="tag tag-green">正常</span></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:14px 20px;text-align:center;color:var(--text-3);font-size:13px">
+          显示前 20 人 · 共 42 人
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
