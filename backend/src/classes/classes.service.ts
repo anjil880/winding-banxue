@@ -11,6 +11,7 @@ import { Student } from '../entities/student.entity';
 import { User } from '../entities/user.entity';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
+import { QueryClassesDto } from './dto/query-classes.dto';
 
 /**
  * 班级学生列表项。
@@ -35,8 +36,20 @@ export class ClassesService {
     private readonly userRepo: Repository<User>,
   ) {}
 
-  async list(): Promise<ClassEntity[]> {
-    return this.classRepo.find({ order: { id: 'ASC' } });
+  async list(query: QueryClassesDto): Promise<{ items: ClassEntity[]; total: number; page: number; pageSize: number }> {
+    const { page, pageSize, keyword } = query;
+    const qb = this.classRepo.createQueryBuilder('c').orderBy('c.id', 'ASC');
+
+    if (keyword) {
+      qb.where('c.name LIKE :kw OR c.grade LIKE :kw', { kw: `%${keyword}%` });
+    }
+
+    const [items, total] = await qb
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+      .getManyAndCount();
+
+    return { items, total, page, pageSize };
   }
 
   async findById(id: number): Promise<ClassEntity> {
