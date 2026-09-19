@@ -70,34 +70,75 @@ docker run --rm hello-world
 
 ---
 
-## 四、启动本项目数据库（Docker 装好后）
+## 四、配置国内镜像加速器（重要）
+
+Docker Hub 官方源在国内访问不稳定，必须配镜像加速器。
+
+编辑 `%USERPROFILE%\.docker\daemon.json`（没有就新建）：
+
+```json
+{
+  "registry-mirrors": [
+    "https://docker.m.daocloud.io",
+    "https://docker.xuanyuan.me",
+    "https://hub.rat.dev"
+  ]
+}
+```
+
+改完后**重启 Docker Desktop** 使配置生效。用 `docker info | findstr Mirrors` 确认已加载。
+
+> 已验证 `docker.m.daocloud.io`（DaoCloud）稳定可用。部分免费镜像会出现
+> `免费节点当前繁忙` 或 `size validation` 错误，属限流/数据损坏，换源即可。
+
+---
+
+## 五、启动本项目数据库
 
 在项目根目录 `D:\小升初系统` 执行：
 
 ```powershell
-docker compose up -d db
+copy .env.example .env      # 首次需生成 .env，并修改 DB_PASSWORD
+docker compose -p banxue up -d db
 ```
 
-这会用 `docker-compose.yml` 里定义好的 PostgreSQL 配置启动数据库。
+> **为什么必须加 `-p banxue`**：项目目录名含中文，`docker compose` 无法自动推导项目名，
+> 会报 `project name must not be empty`。显式指定英文项目名即可。
 
 验证：
 
 ```powershell
-docker compose ps
-# 应看到 postgres 服务为 running 状态
+docker compose -p banxue ps
+docker compose -p banxue exec db psql -U postgres -d qihang_banxue -c "\dt"
 ```
 
----
-
-## 常见问题
-
-| 问题 | 处理 |
-|---|---|
-| `wsl --update` 报错 | 改用 `winget install --id Microsoft.WSL -e` |
-| Docker Desktop 启动报 WSL 错误 | 在 Docker Desktop 设置 → Resources → WSL Integration 确认已启用，再 `wsl --shutdown` 后重启 Docker |
-| 端口 5432 被占用 | 改 `docker-compose.yml` 的端口映射，如 `5433:5432` |
-| 拉取镜像慢 | 在 Docker Desktop 设置 → Docker Engine 添加国内镜像加速器 |
+应看到 15 张业务表。
 
 ---
 
-**装好后告诉我一声**，我会接着跑 `docker compose up -d db` 验证数据库连通，并做后端运行时冒烟测试。
+## 六、常见问题（本次实际踩过的坑）
+
+| 问题 | 原因 | 处理 |
+|---|---|---|
+| `Docker Desktop is unable to start` | WSL 未安装 | 装完 WSL 后重启 Docker Desktop |
+| 装了 WSL 仍报 WSL 错误 | 尚无 Linux 发行版 | Docker Desktop 会自动创建 `docker-desktop` 发行版，耐心等待或重启 |
+| `project name must not be empty` | 目录名含中文 | `docker compose -p banxue` 显式指定项目名 |
+| 容器反复 Restarting | 缺 `POSTGRES_PASSWORD` | 已在本项目 docker-compose.yml 中映射好 `POSTGRES_*` |
+| `免费节点当前繁忙` | 镜像源限流 | 换 `docker.m.daocloud.io` |
+| `failed size validation` | 镜像源返回损坏数据 | 换源重试 |
+| 本机 npm install 损坏 | arborist bug + yarn 中断 | 改用 Docker 容器装依赖，见下方命令 |
+
+**用 Docker 容器装依赖（本机 npm 损坏时的救急方案）**：
+
+```powershell
+docker run --rm -v "${PWD}\backend:/app" -w /app `
+  docker.m.daocloud.io/library/node:22-alpine `
+  sh -c "rm -rf node_modules package-lock.json && npm install --registry=https://registry.npmmirror.com --no-audit --no-fund"
+```
+
+同理，编译也可用容器执行（避免本机 tsc 环境问题）：
+
+```powershell
+docker run --rm -v "${PWD}\backend:/app" -w /app `
+  docker.m.daocloud.io/library/node:22-alpine sh -c "npm run build"
+```

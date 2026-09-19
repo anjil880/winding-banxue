@@ -3,6 +3,7 @@ import { User, UserRole, UserStatus } from '../entities/user.entity';
 import { Teacher } from '../entities/teacher.entity';
 import { Student } from '../entities/student.entity';
 import { ClassEntity } from '../entities/class.entity';
+import { ClassStudent } from '../entities/class-student.entity';
 import { KnowledgePoint } from '../entities/knowledge-point.entity';
 
 /**
@@ -75,6 +76,14 @@ async function run() {
     );
     const stu = await userRepo.findOneBy({ username: '2024001' });
     await studentRepo.save(studentRepo.create({ userId: stu.id, studentNo: '2024001', classId: cls.id }));
+    // 同步写入班级-学生关系表（否则 API 查班级学生列表为空）
+    const classStudentRepo = AppDataSource.getRepository(ClassStudent);
+    const exists = await classStudentRepo.findOneBy({ classId: cls.id, studentId: stu.id });
+    if (!exists) {
+      await classStudentRepo.save(
+        classStudentRepo.create({ classId: cls.id, studentId: stu.id }),
+      );
+    }
   }
 
   // 知识点（模块 → 考点 → 知识点 三级示例）
